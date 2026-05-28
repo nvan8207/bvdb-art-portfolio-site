@@ -4,12 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Breanne VanDenBerghe — Portfolio</title>
+  <title>Bre VanDenBerghe — Fine Art | BVDB</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap"
     rel="stylesheet" />
   <style>
+    /* ═══════════════════════════════════════════════════
+       TOKENS
+    ═══════════════════════════════════════════════════ */
     :root {
       --ivory: #F5F0E8;
       --ivory-dark: #EBE4D6;
@@ -21,6 +24,8 @@
       --muted: #7A7468;
       --serif: 'Cormorant Garamond', Georgia, serif;
       --sans: 'Jost', sans-serif;
+      --nav-h: 64px;
+      --banner-h: 0px;
     }
 
     *,
@@ -33,6 +38,7 @@
 
     html {
       scroll-behavior: smooth;
+      font-size: 16px;
     }
 
     body {
@@ -40,21 +46,37 @@
       color: var(--charcoal);
       font-family: var(--sans);
       font-weight: 300;
-      font-size: 16px;
       line-height: 1.7;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+
+
+    /* ═══════════════════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════════════════ */
     nav {
       position: fixed;
-      top: 0;
+      top: var(--banner-h);
       left: 0;
       right: 0;
-      z-index: 100;
+      z-index: 400;
+      height: var(--nav-h);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem 3rem;
+      padding: 0 3rem;
       background: var(--ivory);
       border-bottom: 1px solid var(--ivory-dark);
       transition: box-shadow 0.3s;
@@ -66,39 +88,47 @@
 
     .nav-logo {
       font-family: var(--serif);
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 300;
-      letter-spacing: 0.12em;
-      color: var(--charcoal);
-      cursor: pointer;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
     }
 
     .nav-logo span {
       color: var(--terracotta);
     }
 
+    /* On mobile, hide the full name and show initials only */
+    .nav-logo .logo-full {
+      display: inline;
+    }
+
+    .nav-logo .logo-initials {
+      display: none;
+    }
+
+    /* Desktop nav links */
     .nav-links {
       display: flex;
       gap: 2.5rem;
       list-style: none;
     }
 
-    .nav-links li a {
-      font-family: var(--sans);
-      font-size: 0.75rem;
+    .nav-links a {
+      font-size: 0.72rem;
       font-weight: 400;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
-      text-decoration: none;
       cursor: pointer;
-      transition: color 0.25s;
       position: relative;
       padding-bottom: 2px;
+      transition: color 0.25s;
     }
 
-    .nav-links li a::after {
+    .nav-links a::after {
       content: '';
       position: absolute;
       bottom: -2px;
@@ -109,21 +139,91 @@
       transition: width 0.3s;
     }
 
-    .nav-links li a:hover,
-    .nav-links li a.active {
+    .nav-links a:hover,
+    .nav-links a.active {
       color: var(--charcoal);
     }
 
-    .nav-links li a:hover::after,
-    .nav-links li a.active::after {
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
       width: 100%;
+    }
+
+    /* Hamburger (mobile only) */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--charcoal);
+      transition: all 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    /* Mobile nav drawer */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: calc(var(--banner-h) + var(--nav-h));
+      left: 0;
+      right: 0;
+      z-index: 390;
+      background: var(--ivory);
+      border-bottom: 1px solid var(--ivory-dark);
+      padding: 1.5rem 2rem;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .mobile-nav.open {
+      display: flex;
+    }
+
+    .mobile-nav a {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+      color: var(--charcoal);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       PAGE SYSTEM
+    ═══════════════════════════════════════════════════ */
+    .page-offset {
+      padding-top: calc(var(--banner-h) + var(--nav-h));
     }
 
     .page {
       display: none;
-      padding-top: 5rem;
       min-height: 100vh;
-      animation: fadein 0.5s ease;
+      animation: fadein 0.45s ease;
     }
 
     .page.active {
@@ -133,37 +233,40 @@
     @keyframes fadein {
       from {
         opacity: 0;
-        transform: translateY(12px);
+        transform: translateY(10px);
       }
 
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: none;
       }
     }
 
+    /* ═══════════════════════════════════════════════════
+       HOME — HERO
+    ═══════════════════════════════════════════════════ */
     #home {
       padding-top: 0;
     }
 
     .hero {
       height: 100vh;
+      min-height: 500px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      position: relative;
-      overflow: hidden;
+      padding-top: calc(var(--banner-h) + var(--nav-h));
     }
 
     .hero-left {
       background: var(--charcoal-mid);
-      display: flex;
-      align-items: flex-end;
-      padding: 4rem;
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: 2.5rem;
     }
 
-    .hero-artwork-placeholder {
+    .hero-art-bg {
       position: absolute;
       inset: 0;
       background: linear-gradient(135deg, #2E2B26 0%, #1C1A17 40%, #3D2B1F 100%);
@@ -172,23 +275,23 @@
       justify-content: center;
     }
 
-    .hero-artwork-placeholder::before {
+    .hero-art-bg::before {
       content: '';
       position: absolute;
-      width: 70%;
-      height: 70%;
-      border: 1px solid rgba(201, 168, 76, 0.2);
-      border-radius: 2px;
+      width: 65%;
+      height: 65%;
+      border: 1px solid rgba(201, 168, 76, 0.18);
+      border-radius: 1px;
     }
 
-    .placeholder-label {
+    .ph-label {
       font-family: var(--serif);
-      font-size: 0.85rem;
-      color: rgba(201, 168, 76, 0.35);
-      letter-spacing: 0.2em;
+      font-size: 0.78rem;
+      color: rgba(201, 168, 76, 0.3);
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       text-align: center;
-      line-height: 2;
+      line-height: 2.2;
     }
 
     .hero-caption {
@@ -199,18 +302,18 @@
 
     .hero-caption p {
       font-family: var(--serif);
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      opacity: 0.6;
-      margin-bottom: 0.3rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      opacity: 0.55;
       font-style: italic;
+      margin-bottom: 0.2rem;
     }
 
     .hero-caption h2 {
       font-family: var(--serif);
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 300;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
     }
 
     .hero-right {
@@ -218,7 +321,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 4rem 5rem;
+      padding: 3rem 4rem;
       position: relative;
     }
 
@@ -230,24 +333,23 @@
       height: calc(100% - 6rem);
       width: 1px;
       background: var(--gold);
-      opacity: 0.4;
+      opacity: 0.35;
     }
 
     .hero-eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
+      font-size: 0.65rem;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
       color: var(--terracotta);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .hero-title {
       font-family: var(--serif);
-      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-size: clamp(2.4rem, 5vw, 5rem);
       font-weight: 300;
       line-height: 1.05;
-      color: var(--charcoal);
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .hero-title em {
@@ -256,252 +358,251 @@
     }
 
     .hero-tagline {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--muted);
-      letter-spacing: 0.04em;
-      line-height: 1.8;
-      max-width: 320px;
-      margin-bottom: 3rem;
+      line-height: 1.85;
+      max-width: 300px;
+      margin-bottom: 2.5rem;
     }
 
-    .hero-cta {
+    .cta-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
-      font-size: 0.75rem;
+      gap: 0.6rem;
+      font-size: 0.7rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--charcoal);
       cursor: pointer;
-      text-decoration: none;
-      transition: gap 0.3s;
-      width: fit-content;
+      transition: gap 0.3s, color 0.3s;
+      background: none;
+      border: none;
+      font-family: var(--sans);
+      padding: 0;
     }
 
-    .hero-cta::after {
+    .cta-btn::after {
       content: '→';
-      font-size: 1rem;
+      font-size: 0.95rem;
       transition: transform 0.3s;
     }
 
-    .hero-cta:hover {
-      gap: 1.25rem;
+    .cta-btn:hover {
+      gap: 1rem;
       color: var(--terracotta);
     }
 
-    .hero-cta:hover::after {
+    .cta-btn:hover::after {
       transform: translateX(4px);
     }
 
-    .hero-social {
+    .hero-socials {
       position: absolute;
-      bottom: 3rem;
-      right: 4rem;
+      bottom: 2.5rem;
+      right: 3rem;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
       align-items: center;
+      gap: 0.9rem;
     }
 
-    .hero-social::before {
+    .hero-socials::before {
       content: '';
       width: 1px;
-      height: 3rem;
+      height: 2.5rem;
       background: var(--muted);
-      opacity: 0.3;
+      opacity: 0.25;
     }
 
-    .social-icon {
-      font-size: 0.65rem;
+    .s-icon {
+      font-size: 0.6rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
-      text-decoration: none;
       writing-mode: vertical-rl;
-      cursor: pointer;
       transition: color 0.25s;
     }
 
-    .social-icon:hover {
+    .s-icon:hover {
       color: var(--terracotta);
     }
 
+    /* ═══════════════════════════════════════════════════
+       HOME — SELECTED WORKS STRIP
+    ═══════════════════════════════════════════════════ */
     .featured-strip {
-      padding: 5rem 3rem;
-      background: var(--ivory);
+      padding: 4rem 3rem 5rem;
     }
 
-    .section-header {
+    .strip-header {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      margin-bottom: 3rem;
       border-bottom: 1px solid var(--ivory-dark);
-      padding-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      margin-bottom: 2.5rem;
     }
 
-    .section-title {
+    .strip-title {
       font-family: var(--serif);
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: 300;
-      letter-spacing: 0.04em;
     }
 
-    .section-link {
-      font-size: 0.7rem;
+    .strip-link {
+      font-size: 0.68rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--terracotta);
-      text-decoration: none;
       cursor: pointer;
     }
 
-    .section-link:hover {
+    .strip-link:hover {
       opacity: 0.7;
     }
 
     .featured-grid {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 1rem;
+      gap: 0.85rem;
     }
 
-    .feat-item {
-      background: var(--charcoal-mid);
+    .feat-card {
+      background: var(--charcoal);
+      cursor: pointer;
       position: relative;
       overflow: hidden;
-      cursor: pointer;
     }
 
-    .feat-item:first-child {
+    .feat-card:first-child {
       grid-row: 1 / 3;
     }
 
     .feat-thumb {
       width: 100%;
-      aspect-ratio: 1;
+      aspect-ratio: 1/1;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--charcoal);
-      transition: transform 0.5s ease;
       overflow: hidden;
+      transition: transform 0.5s ease;
+      background: var(--charcoal);
     }
 
-    .feat-item:first-child .feat-thumb {
+    .feat-card:first-child .feat-thumb {
       aspect-ratio: 3/4;
     }
 
-    .feat-item:hover .feat-thumb {
+    .feat-card:hover .feat-thumb {
       transform: scale(1.04);
     }
 
-    .art-placeholder {
+    .art-ph {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       width: 100%;
       height: 100%;
+      color: rgba(201, 168, 76, 0.25);
       font-family: var(--serif);
-      color: rgba(201, 168, 76, 0.3);
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      gap: 0.75rem;
+      gap: 0.6rem;
     }
 
-    .art-placeholder svg {
-      opacity: 0.2;
+    .art-ph svg {
+      opacity: 0.18;
     }
 
-    .feat-info {
-      padding: 0.9rem 1.1rem;
+    .feat-label {
+      padding: 0.75rem 1rem;
       background: var(--charcoal-mid);
     }
 
-    .feat-info h3 {
+    .feat-label h3 {
       font-family: var(--serif);
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 400;
       color: var(--gold-light);
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.15rem;
     }
 
-    .feat-info p {
-      font-size: 0.72rem;
+    .feat-label p {
+      font-size: 0.68rem;
       color: var(--muted);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
     }
 
-    #gallery {
-      background: var(--ivory);
-    }
-
-    .gallery-header {
-      padding: 4rem 3rem 2rem;
+    /* ═══════════════════════════════════════════════════
+       GALLERY PAGE
+    ═══════════════════════════════════════════════════ */
+    .gallery-hdr {
+      padding: 3rem 3rem 1.5rem;
       border-bottom: 1px solid var(--ivory-dark);
     }
 
-    .page-eyebrow {
-      font-size: 0.7rem;
+    .pg-eyebrow {
+      font-size: 0.65rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--terracotta);
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
     }
 
-    .page-title {
+    .pg-title {
       font-family: var(--serif);
-      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
       font-weight: 300;
       line-height: 1.1;
     }
 
+
+
     .filter-bar {
-      padding: 1.5rem 3rem;
+      padding: 1.25rem 3rem;
       display: flex;
-      gap: 0.5rem;
+      gap: 0.4rem;
       flex-wrap: wrap;
       border-bottom: 1px solid var(--ivory-dark);
     }
 
-    .filter-btn {
+    .fbtn {
       font-family: var(--sans);
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       border: 1px solid var(--ivory-dark);
       background: transparent;
       color: var(--muted);
-      padding: 0.45rem 1.1rem;
+      padding: 0.4rem 1rem;
       cursor: pointer;
       transition: all 0.2s;
     }
 
-    .filter-btn:hover,
-    .filter-btn.active {
+    .fbtn:hover,
+    .fbtn.active {
       background: var(--charcoal);
       border-color: var(--charcoal);
       color: var(--ivory);
     }
 
     .gallery-grid {
-      padding: 2.5rem 3rem 5rem;
+      padding: 2rem 3rem 5rem;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.1rem;
     }
 
-    .gallery-card {
+    .gcard {
       cursor: pointer;
       position: relative;
       overflow: hidden;
       background: var(--charcoal);
     }
 
-    .gallery-thumb {
+    .gthumb {
       width: 100%;
       aspect-ratio: 3/4;
       display: flex;
@@ -511,62 +612,65 @@
       transition: transform 0.5s ease;
     }
 
-    .gallery-card:hover .gallery-thumb {
+    .gcard:hover .gthumb {
       transform: scale(1.04);
     }
 
-    .gallery-overlay {
+    .govlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(28, 26, 23, 0.85) 0%, transparent 50%);
+      background: linear-gradient(to top, rgba(28, 26, 23, 0.85) 0%, transparent 55%);
       opacity: 0;
-      transition: opacity 0.35s;
+      transition: opacity 0.3s;
       display: flex;
       align-items: flex-end;
-      padding: 1.5rem;
+      padding: 1.25rem;
     }
 
-    .gallery-card:hover .gallery-overlay {
+    .gcard:hover .govlay {
       opacity: 1;
     }
 
-    .gallery-overlay-text h3 {
+    .govlay h3 {
       font-family: var(--serif);
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       color: var(--ivory);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.2rem;
     }
 
-    .gallery-overlay-text p {
-      font-size: 0.72rem;
+    .govlay p {
+      font-size: 0.68rem;
       color: var(--gold-light);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
     }
 
-    .gallery-label {
-      padding: 0.85rem 1rem;
+    .glabel {
+      padding: 0.75rem 0.9rem;
       background: var(--ivory);
       border-top: 1px solid var(--ivory-dark);
     }
 
-    .gallery-label h3 {
+    .glabel h3 {
       font-family: var(--serif);
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 400;
-      margin-bottom: 0.15rem;
+      margin-bottom: 0.12rem;
     }
 
-    .gallery-label p {
-      font-size: 0.72rem;
+    .glabel p {
+      font-size: 0.68rem;
       color: var(--muted);
     }
 
+    /* ═══════════════════════════════════════════════════
+       LIGHTBOX
+    ═══════════════════════════════════════════════════ */
     .lightbox {
       display: none;
       position: fixed;
       inset: 0;
-      z-index: 200;
-      background: rgba(28, 26, 23, 0.95);
+      z-index: 600;
+      background: rgba(28, 26, 23, 0.96);
       align-items: center;
       justify-content: center;
       padding: 2rem;
@@ -576,16 +680,16 @@
       display: flex;
     }
 
-    .lightbox-inner {
-      max-width: 900px;
+    .lb-inner {
+      max-width: 860px;
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 3rem;
+      grid-template-columns: 1fr 260px;
+      gap: 2.5rem;
       align-items: center;
     }
 
-    .lightbox-img {
+    .lb-img {
       background: var(--charcoal-mid);
       aspect-ratio: 3/4;
       display: flex;
@@ -593,39 +697,39 @@
       justify-content: center;
     }
 
-    .lightbox-info h2 {
+    .lb-info h2 {
       font-family: var(--serif);
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 300;
       color: var(--ivory);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
 
-    .lightbox-info .lb-meta {
-      font-size: 0.8rem;
+    .lb-meta {
+      font-size: 0.75rem;
       color: var(--gold);
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
-    .lightbox-info p {
-      font-size: 0.9rem;
-      color: rgba(245, 240, 232, 0.6);
+    .lb-desc {
+      font-size: 0.88rem;
+      color: rgba(245, 240, 232, 0.55);
       line-height: 1.8;
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
     }
 
     .lb-close {
       position: absolute;
-      top: 1.5rem;
-      right: 2rem;
-      font-size: 1.5rem;
+      top: 1.25rem;
+      right: 1.75rem;
+      font-size: 1.4rem;
       color: var(--ivory);
-      cursor: pointer;
-      opacity: 0.5;
+      opacity: 0.45;
       background: none;
       border: none;
+      cursor: pointer;
       transition: opacity 0.2s;
     }
 
@@ -633,23 +737,21 @@
       opacity: 1;
     }
 
-    #about {
-      background: var(--ivory);
-    }
-
+    /* ═══════════════════════════════════════════════════
+       ABOUT PAGE
+    ═══════════════════════════════════════════════════ */
     .about-layout {
       display: grid;
-      grid-template-columns: 380px 1fr;
-      gap: 0;
-      min-height: calc(100vh - 5rem);
+      grid-template-columns: 340px 1fr;
+      min-height: calc(100vh - var(--banner-h) - var(--nav-h));
     }
 
     .about-sidebar {
       background: var(--charcoal);
-      padding: 4rem 3rem;
+      padding: 3.5rem 2.5rem;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 1.75rem;
     }
 
     .about-portrait {
@@ -659,20 +761,19 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(201, 168, 76, 0.15);
-      margin-bottom: 0.5rem;
+      border: 1px solid rgba(201, 168, 76, 0.13);
     }
 
     .about-sidebar h1 {
       font-family: var(--serif);
-      font-size: 1.8rem;
+      font-size: 1.65rem;
       font-weight: 300;
       color: var(--ivory);
       letter-spacing: 0.04em;
     }
 
     .about-sidebar .subtitle {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--gold);
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -681,95 +782,283 @@
     .about-socials {
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
+      gap: 0.55rem;
       margin-top: auto;
     }
 
-    .about-social-link {
+    .asl {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      font-size: 0.75rem;
+      gap: 0.65rem;
+      font-size: 0.7rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
-      text-decoration: none;
       cursor: pointer;
       transition: color 0.25s;
     }
 
-    .about-social-link:hover {
+    .asl:hover {
       color: var(--gold-light);
     }
 
-    .social-dot {
-      width: 6px;
-      height: 6px;
+    .sdot {
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: var(--terracotta);
       flex-shrink: 0;
     }
 
-    .about-content {
-      padding: 5rem;
-      max-width: 700px;
+    .about-body {
+      padding: 4rem;
+      max-width: 680px;
     }
 
-    .about-content .page-eyebrow {
-      margin-bottom: 0.5rem;
+    .about-body .pg-eyebrow {
+      margin-bottom: 0.4rem;
     }
 
-    .about-content h2 {
+    .about-body h2 {
       font-family: var(--serif);
-      font-size: 2.8rem;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
       font-weight: 300;
       line-height: 1.15;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
 
-    .about-content p {
-      font-size: 1rem;
+    .about-body p {
+      font-size: 0.95rem;
       color: var(--charcoal);
-      line-height: 1.85;
-      margin-bottom: 1.5rem;
-      opacity: 0.85;
+      line-height: 1.9;
+      margin-bottom: 1.25rem;
+      opacity: 0.82;
     }
 
     .about-divider {
-      width: 3rem;
+      width: 2.5rem;
       height: 1px;
       background: var(--gold);
-      margin: 2.5rem 0;
+      margin: 2rem 0;
     }
 
     .client-list {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.5rem 2rem;
+      gap: 0.4rem 2rem;
     }
 
     .client-list li {
       list-style: none;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--muted);
-      padding: 0.4rem 0;
+      padding: 0.35rem 0;
       border-bottom: 1px solid var(--ivory-dark);
-      letter-spacing: 0.04em;
     }
 
-    #contact {
+    /* ═══════════════════════════════════════════════════
+       PRICE CALCULATOR PAGE
+    ═══════════════════════════════════════════════════ */
+    .calc-layout {
+      padding: 4rem 3rem 6rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .calc-layout .pg-eyebrow {
+      margin-bottom: 0.5rem;
+    }
+
+    .calc-layout .pg-title {
+      margin-bottom: 0.5rem;
+    }
+
+    .calc-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 3rem;
+      max-width: 560px;
+    }
+
+    .calc-card {
+      background: white;
+      border: 1px solid var(--ivory-dark);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .calc-card h3 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 1.75rem;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .input-group label {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .input-group input,
+    .input-group select {
+      padding: 0.75rem 1rem;
       background: var(--ivory);
+      border: 1px solid var(--ivory-dark);
+      border-bottom: 1.5px solid #C4B99A;
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.2s;
+      border-radius: 0;
+      appearance: none;
     }
 
+    .input-group input:focus,
+    .input-group select:focus {
+      border-bottom-color: var(--terracotta);
+    }
+
+    .unit-toggle {
+      display: flex;
+      gap: 0;
+      margin-bottom: 1.5rem;
+    }
+
+    .utbtn {
+      flex: 1;
+      padding: 0.55rem;
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 1px solid var(--ivory-dark);
+      background: transparent;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .utbtn:first-child {
+      border-right: none;
+    }
+
+    .utbtn.active {
+      background: var(--charcoal);
+      border-color: var(--charcoal);
+      color: var(--ivory);
+    }
+
+    .result-box {
+      background: var(--charcoal);
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: gap;
+      margin-top: 1.5rem;
+    }
+
+    .result-box .result-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+      margin-bottom: 0.4rem;
+    }
+
+    .result-price {
+      font-family: var(--serif);
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--ivory);
+      line-height: 1;
+    }
+
+    .result-breakdown {
+      font-size: 0.75rem;
+      color: rgba(245, 240, 232, 0.45);
+      margin-top: 0.4rem;
+    }
+
+    .result-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      padding: 0.35rem 0.85rem;
+      align-self: flex-start;
+    }
+
+    .rate-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .rate-table th {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--ivory-dark);
+    }
+
+    .rate-table td {
+      font-size: 0.88rem;
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid var(--ivory-dark);
+    }
+
+    .rate-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .rate-table .med {
+      font-family: var(--serif);
+      font-size: 1rem;
+    }
+
+    .rate-pill {
+      font-size: 0.7rem;
+      background: var(--ivory-dark);
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      color: var(--muted);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       CONTACT PAGE
+    ═══════════════════════════════════════════════════ */
     .contact-layout {
       display: grid;
-      grid-template-columns: 1fr 480px;
-      min-height: calc(100vh - 5rem);
+      grid-template-columns: 1fr 440px;
+      min-height: calc(100vh - var(--banner-h) - var(--nav-h));
     }
 
     .contact-left {
       background: var(--charcoal);
-      padding: 5rem 4rem;
+      padding: 4.5rem 3.5rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -777,11 +1066,11 @@
 
     .contact-left h2 {
       font-family: var(--serif);
-      font-size: clamp(2.5rem, 4vw, 4rem);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
       font-weight: 300;
       color: var(--ivory);
       line-height: 1.1;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .contact-left h2 em {
@@ -789,103 +1078,99 @@
       font-style: italic;
     }
 
-    .contact-left p {
-      font-size: 0.95rem;
-      color: rgba(245, 240, 232, 0.5);
+    .contact-left>div>p {
+      font-size: 0.88rem;
+      color: rgba(245, 240, 232, 0.45);
       line-height: 1.8;
-      max-width: 380px;
-      margin-bottom: 3rem;
+      max-width: 360px;
+      margin-bottom: 2.5rem;
     }
 
     .contact-details {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.25rem;
     }
 
-    .contact-detail-row {
+    .cd-row {
       display: flex;
       flex-direction: column;
-      gap: 0.2rem;
+      gap: 0.15rem;
     }
 
-    .contact-detail-row label {
-      font-size: 0.65rem;
+    .cd-row label {
+      font-size: 0.62rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--gold);
-      opacity: 0.6;
+      opacity: 0.55;
     }
 
-    .contact-detail-row a,
-    .contact-detail-row span {
-      font-size: 1rem;
+    .cd-row a,
+    .cd-row span {
+      font-size: 0.95rem;
       color: var(--ivory);
-      text-decoration: none;
       font-family: var(--serif);
     }
 
-    .contact-social-row {
+    .socials-row {
       display: flex;
-      gap: 1.5rem;
+      gap: 1.25rem;
       flex-wrap: wrap;
     }
 
-    .contact-social-pill {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
+    .s-pill {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
-      text-decoration: none;
+      border: 1px solid rgba(122, 116, 104, 0.28);
+      padding: 0.45rem 0.9rem;
       cursor: pointer;
-      border: 1px solid rgba(122, 116, 104, 0.3);
-      padding: 0.5rem 1rem;
       transition: all 0.25s;
     }
 
-    .contact-social-pill:hover {
+    .s-pill:hover {
       border-color: var(--gold);
       color: var(--gold-light);
     }
 
     .contact-right {
       background: var(--ivory);
-      padding: 5rem 3.5rem;
+      padding: 4.5rem 3rem;
     }
 
     .contact-right h3 {
       font-family: var(--serif);
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 300;
-      margin-bottom: 2.5rem;
-      color: var(--charcoal);
+      margin-bottom: 2rem;
     }
 
     .form-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .form-group label {
       display: block;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
 
     .form-group input,
     .form-group textarea,
     .form-group select {
       width: 100%;
-      padding: 0.85rem 1rem;
+      padding: 0.75rem 0.9rem;
       background: var(--ivory-dark);
       border: 1px solid var(--ivory-dark);
-      border-bottom: 1px solid #C4B99A;
-      color: var(--charcoal);
+      border-bottom: 1.5px solid #C4B99A;
       font-family: var(--sans);
-      font-size: 0.9rem;
-      font-weight: 300;
+      font-size: 0.88rem;
+      color: var(--charcoal);
       outline: none;
       transition: border-color 0.25s;
       border-radius: 0;
@@ -899,97 +1184,157 @@
     }
 
     .form-group textarea {
-      height: 120px;
+      height: 110px;
       resize: vertical;
     }
 
     .form-submit {
       width: 100%;
-      padding: 1rem;
+      padding: 0.9rem;
       background: var(--charcoal);
       color: var(--ivory);
       border: none;
       font-family: var(--sans);
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       cursor: pointer;
       transition: background 0.25s;
-      margin-top: 0.5rem;
+      margin-top: 0.4rem;
     }
 
     .form-submit:hover {
       background: var(--terracotta);
     }
 
-    .art-galleria-note {
-      margin-top: 1.5rem;
-      padding: 1rem;
+    .ag-form-note {
+      margin-top: 1.25rem;
+      padding: 0.9rem 1rem;
       border: 1px solid var(--ivory-dark);
       border-left: 3px solid var(--gold);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.65;
     }
 
-    .art-galleria-note strong {
+    .ag-form-note strong {
       color: var(--charcoal);
       display: block;
-      margin-bottom: 0.3rem;
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
+      margin-bottom: 0.2rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
     }
 
+    /* ═══════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════ */
     footer {
       background: var(--charcoal);
-      padding: 2rem 3rem;
+      padding: 1.75rem 3rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
 
     .footer-copy {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       color: var(--muted);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
     }
 
     .footer-ip {
-      font-size: 0.68rem;
-      color: rgba(122, 116, 104, 0.6);
-      letter-spacing: 0.06em;
-      max-width: 400px;
+      font-size: 0.64rem;
+      color: rgba(122, 116, 104, 0.5);
+      letter-spacing: 0.04em;
+      max-width: 380px;
       text-align: right;
       line-height: 1.6;
     }
 
-    .draft-banner {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 300;
-      background: var(--terracotta);
-      color: var(--ivory);
-      text-align: center;
-      padding: 0.6rem 1rem;
-      font-size: 0.72rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+    /* Consistent footer social links — appear on every page */
+    .footer-socials {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+      width: 100%;
+      border-top: 1px solid rgba(122, 116, 104, 0.15);
+      padding-top: 1rem;
+      margin-top: 0.25rem;
     }
 
-    @media (max-width: 900px) {
+    .footer-socials a {
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .footer-socials a:hover {
+      color: var(--gold-light);
+    }
+
+    .footer-socials .sig {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: rgba(201, 168, 76, 0.35);
+      letter-spacing: 0.06em;
+      margin-left: auto;
+    }
+
+    /* Shipping warning in result box */
+    .shipping-warn {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(201, 168, 76, 0.12);
+      border: 1px solid rgba(201, 168, 76, 0.35);
+      font-size: 0.75rem;
+      color: var(--gold-light);
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+    }
+
+    .shipping-warn strong {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+      color: var(--gold);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       RESPONSIVE — TABLET & MOBILE
+    ═══════════════════════════════════════════════════ */
+    @media (max-width: 960px) {
       nav {
-        padding: 1rem 1.5rem;
+        padding: 0 1.75rem;
       }
 
       .nav-links {
-        gap: 1.5rem;
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      /* Switch logo to BVDB initials on mobile */
+      .nav-logo .logo-full {
+        display: none;
+      }
+
+      .nav-logo .logo-initials {
+        display: inline;
       }
 
       .hero {
         grid-template-columns: 1fr;
+        height: auto;
+        min-height: 100svh;
       }
 
       .hero-left {
@@ -997,106 +1342,238 @@
       }
 
       .hero-right {
-        padding: 6rem 2rem 3rem;
+        padding: 3rem 2rem 2.5rem;
+      }
+
+      .hero-right::before {
+        display: none;
+      }
+
+      .hero-socials {
+        display: none;
+      }
+
+      .featured-strip {
+        padding: 3rem 1.75rem 4rem;
       }
 
       .featured-grid {
         grid-template-columns: 1fr 1fr;
       }
 
-      .feat-item:first-child {
+      .feat-card:first-child {
         grid-column: 1 / 3;
         grid-row: auto;
       }
 
-      .about-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .about-sidebar {
-        display: none;
-      }
-
-      .about-content {
-        padding: 3rem 2rem;
-        max-width: 100%;
-      }
-
-      .contact-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-left {
-        padding: 3rem 2rem;
-      }
-
-      .contact-right {
-        padding: 3rem 2rem;
-      }
-
-      .gallery-grid {
-        padding: 2rem 1.5rem 4rem;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      }
-
-      .featured-strip {
-        padding: 3rem 1.5rem;
-      }
-
-      .filter-bar {
-        padding: 1rem 1.5rem;
-      }
-
-      .gallery-header {
-        padding: 3rem 1.5rem 1.5rem;
-      }
-
-      .lightbox-inner {
-        grid-template-columns: 1fr;
-      }
-
-      .lightbox-img {
+      .feat-card:first-child .feat-thumb {
         aspect-ratio: 4/3;
       }
 
-      footer {
-        flex-direction: column;
-        gap: 0.75rem;
-        text-align: center;
+      .gallery-hdr {
+        padding: 2.5rem 1.75rem 1.25rem;
       }
 
-      .footer-ip {
-        text-align: center;
-        max-width: 100%;
+
+    }
+
+    .filter-bar {
+      padding: 1rem 1.75rem;
+    }
+
+    .gallery-grid {
+      padding: 1.5rem 1.75rem 4rem;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .about-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .about-sidebar {
+      display: none;
+    }
+
+    .about-body {
+      padding: 2.5rem 1.75rem;
+      max-width: 100%;
+    }
+
+    .calc-layout {
+      padding: 2.5rem 1.75rem 5rem;
+    }
+
+    .input-row {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-left {
+      padding: 3rem 1.75rem;
+    }
+
+    .contact-right {
+      padding: 3rem 1.75rem;
+    }
+
+    .lb-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .lb-img {
+      aspect-ratio: 4/3;
+    }
+
+    footer {
+      padding: 1.5rem 1.75rem;
+    }
+
+    .footer-ip {
+      text-align: left;
+    }
+    }
+
+    @media (max-width: 560px) {
+      .featured-grid {
+        grid-template-columns: 1fr;
       }
+
+      .feat-card:first-child {
+        grid-column: auto;
+      }
+
+      .result-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+
+      .strip-header {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+
+    /* Size visualiser */
+    .vis-wrap {
+      margin-top: 1.5rem;
+    }
+
+    .vis-wrap h4 {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+
+    .vis-subtitle {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      letter-spacing: 0.04em;
+    }
+
+    .vis-canvas-wrap {
+      background: var(--ivory-dark);
+      border: 1px solid var(--ivory-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      min-height: 280px;
+      overflow: hidden;
+    }
+
+    #vis-canvas {
+      display: block;
+      max-width: 100%;
+    }
+
+    .vis-legend {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .vis-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .vis-swatch {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .min-warn {
+      margin-top: 0.6rem;
+      font-size: 0.72rem;
+      color: var(--terracotta);
+      letter-spacing: 0.04em;
+      display: none;
+    }
+
+    .min-warn.show {
+      display: block;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="draft-banner">⚠ Draft Preview — Placeholder content only. Images and copy to be supplied by artist.</div>
-
+  <!-- NAV -->
   <nav id="main-nav">
-    <div class="nav-logo" onclick="showPage('home')">Breanne <span>VanDenBerghe</span></div>
-    <ul class="nav-links">
+    <div class="nav-logo" onclick="showPage('home')">
+      <span class="logo-full">Bre <span>VanDenBerghe</span></span>
+      <span class="logo-initials">B<span>V</span>DB</span>
+    </div>
+    <ul class="nav-links" id="desktop-nav">
       <li><a onclick="showPage('gallery')" data-page="gallery">Gallery</a></li>
+      <li><a onclick="showPage('calculator')" data-page="calculator">Commissions</a></li>
       <li><a onclick="showPage('about')" data-page="about">About</a></li>
       <li><a onclick="showPage('contact')" data-page="contact">Contact</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
+  <!-- MOBILE NAV DRAWER -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a onclick="navTo('gallery')">Gallery</a>
+    <a onclick="navTo('calculator')">Commissions</a>
+    <a onclick="navTo('about')">About</a>
+    <a onclick="navTo('contact')">Contact</a>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+     HOME
+══════════════════════════════════════════════════════ -->
   <div id="home" class="page active">
     <section class="hero">
       <div class="hero-left">
-        <div class="hero-artwork-placeholder">
-          <div class="placeholder-label">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <div class="hero-art-bg">
+          <div class="ph-label">
+            <svg width="44" height="44" viewBox="0 0 48 48" fill="none">
               <rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1" />
               <circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1" />
               <path d="M4 32L16 20L26 30L34 22L44 32" stroke="#C9A84C" stroke-width="1" />
             </svg>
-            <span>Featured artwork<br>[Image to be provided]</span>
+            Featured artwork<br>[Image to be provided]
           </div>
         </div>
         <div class="hero-caption">
@@ -1104,83 +1581,247 @@
           <h2 id="hero-title">Placeholder Title</h2>
         </div>
       </div>
+
       <div class="hero-right">
         <p class="hero-eyebrow">Fine Art · Commissions Open</p>
         <h1 class="hero-title">Original<br><em>works of art</em><br>for collectors</h1>
-        <p class="hero-tagline">Little intro/summary of artist and works. Available for commissions, exhibitions, and
-          licensing.</p>
-        <a class="hero-cta" onclick="showPage('gallery')">View the gallery</a>
-        <div class="hero-social">
-          <a class="social-icon" href="#" title="Instagram">Instagram</a>
-          <a class="social-icon" href="#" title="Facebook">Facebook</a>
+        <p class="hero-tagline">Figurative and narrative painting rooted in classical tradition. Available for
+          commissions, exhibitions, and licensing.</p>
+        <button class="cta-btn" onclick="showPage('gallery')">View the gallery</button>
+        <div class="hero-socials">
+          <a class="s-icon" href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram</a>
         </div>
       </div>
     </section>
 
     <section class="featured-strip">
-      <div class="section-header">
-        <h2 class="section-title">Selected Works</h2>
-        <a class="section-link" onclick="showPage('gallery')">View all →</a>
+      <div class="strip-header">
+        <h2 class="strip-title">Selected Works</h2>
+        <a class="strip-link" onclick="showPage('gallery')">View all →</a>
       </div>
       <div class="featured-grid" id="featured-grid"></div>
     </section>
 
     <footer>
-      <div class="footer-copy">© 2025 Breanne VanDenBerghe. All rights reserved.</div>
-      <div class="footer-ip">All images on this site are the exclusive property of the artist. No reproduction,
-        download, or use is permitted without written consent.</div>
+      <div class="footer-copy">© 2026 Bre VanDenBerghe. All rights reserved.</div>
+      <div class="footer-ip">All images are the exclusive property of the artist. No reproduction or use without written
+        consent.</div>
+      <div class="footer-socials">
+        <a href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram — @brevandenberghe</a>
+        <span class="sig">BVDB</span>
+      </div>
     </footer>
   </div>
 
-  <div id="gallery" class="page">
-    <div class="gallery-header">
-      <p class="page-eyebrow">Works</p>
-      <h1 class="page-title">Gallery</h1>
+  <!-- ══════════════════════════════════════════════════════
+     GALLERY
+══════════════════════════════════════════════════════ -->
+  <div id="gallery" class="page page-offset">
+    <div class="gallery-hdr">
+      <p class="pg-eyebrow">Works</p>
+      <h1 class="pg-title">Gallery</h1>
     </div>
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterGallery('all', this)">All Works</button>
-      <button class="filter-btn" onclick="filterGallery('watercolour', this)">Watercolour</button>
-      <button class="filter-btn" onclick="filterGallery('oil', this)">Oil</button>
-      <button class="filter-btn" onclick="filterGallery('mixed', this)">Mixed Media</button>
-      <button class="filter-btn" onclick="filterGallery('commission', this)">Commissions</button>
+
+    <!--
+
+  -->
+
+  </div>
+
+  <div class="filter-bar">
+    <button class="fbtn active" onclick="filterGallery('all',this)">All Works</button>
+    <button class="fbtn" onclick="filterGallery('watercolour',this)">Watercolour</button>
+    <button class="fbtn" onclick="filterGallery('oil',this)">Oil</button>
+    <button class="fbtn" onclick="filterGallery('mixed',this)">Mixed Media</button>
+    <button class="fbtn" onclick="filterGallery('commission',this)">Commissions</button>
+  </div>
+  <div class="gallery-grid" id="gallery-grid"></div>
+
+  <footer>
+    <div class="footer-copy">© 2026 Bre VanDenBerghe. All rights reserved.</div>
+    <div class="footer-ip">All images © the artist. Reproduction without written permission is prohibited.</div>
+    <div class="footer-socials">
+      <a href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram — @brevandenberghe</a>
+      <span class="sig">BVDB</span>
     </div>
-    <div class="gallery-grid" id="gallery-grid"></div>
+  </footer>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+     PRICE CALCULATOR
+══════════════════════════════════════════════════════ -->
+  <div id="calculator" class="page page-offset">
+    <div class="calc-layout">
+      <p class="pg-eyebrow">Commissions</p>
+      <h1 class="pg-title">Price Calculator</h1>
+      <p class="calc-subtitle">Use this calculator to estimate the price of a commission based on the artwork's
+        dimensions. Final quotes are confirmed after consultation — get in touch to discuss your project.</p>
+
+      <!-- Rate reference card -->
+      <div class="calc-card">
+        <h3>Base rates</h3>
+        <table class="rate-table">
+          <thead>
+            <tr>
+              <th>Medium</th>
+              <th>Rate per sq inch (AUD)</th>
+              <th>Rate per sq cm (AUD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="med">Watercolour</td>
+              <td>$2.50 / sq in</td>
+              <td class="rate-pill">≈ $0.388 / sq cm</td>
+            </tr>
+            <tr>
+              <td class="med">Oil</td>
+              <td>$3.00 / sq in</td>
+              <td class="rate-pill">≈ $0.465 / sq cm</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.72rem; color:var(--muted); margin-top:1rem; line-height:1.7;">Prices are a guide only.
+          Complexity, reference materials, revision rounds, and framing may affect the final quote. A 50% deposit is
+          required to begin work.</p>
+      </div>
+
+      <!-- Calculator card -->
+      <div class="calc-card">
+        <h3>Calculate a price</h3>
+
+        <div style="margin-bottom:1.25rem;">
+          <div
+            style="font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:0.5rem;">
+            Units</div>
+          <div class="unit-toggle">
+            <button class="utbtn active" id="btn-in" onclick="setUnit('in')">Inches (in)</button>
+            <button class="utbtn" id="btn-cm" onclick="setUnit('cm')">Centimetres (cm)</button>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="input-group">
+            <label id="w-label">Width (inches)</label>
+            <input type="number" id="inp-w" min="0" step="0.1" placeholder="e.g. 12" oninput="calcPrice()" />
+          </div>
+          <div class="input-group">
+            <label id="h-label">Height (inches)</label>
+            <input type="number" id="inp-h" min="0" step="0.1" placeholder="e.g. 16" oninput="calcPrice()" />
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="input-group">
+            <label>Medium</label>
+            <select id="sel-medium" onchange="calcPrice()">
+              <option value="2.5">Watercolour — $2.50 / sq in</option>
+              <option value="3.0">Oil — $3.00 / sq in</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="result-box" id="result-box">
+          <div>
+            <div class="result-label">Estimated price (AUD)</div>
+            <div class="result-price" id="result-price">—</div>
+            <div class="result-breakdown" id="result-breakdown">Enter dimensions above</div>
+          </div>
+          <div class="result-tag" id="result-tag"></div>
+        </div>
+        <div class="shipping-warn" id="shipping-warn" style="display:none;">
+          <strong>Shipping &amp; handling not included</strong>
+          This estimate covers the artwork only. Shipping, packaging, and handling are calculated separately based on
+          your location and artwork dimensions — you will receive a separate quote for these costs before any payment is
+          taken.
+        </div>
+      </div>
+
+      <!-- Size visualiser card -->
+      <div class="calc-card">
+        <div class="vis-wrap">
+          <h4>Size visualiser</h4>
+          <p class="vis-subtitle">Your artwork size shown against an A4 reference sheet (210 × 297 mm). Minimum
+            commission size is 4 × 4 inches.</p>
+          <div class="vis-canvas-wrap">
+            <canvas id="vis-canvas" width="400" height="240"></canvas>
+          </div>
+          <p class="min-warn" id="min-warn">⚠ Minimum commission size is 4 × 4 inches (approx. 10 × 10 cm). Please
+            increase your dimensions.</p>
+          <div class="vis-legend">
+            <div class="vis-legend-item">
+              <div class="vis-swatch" style="background:#B85C38;opacity:0.75;"></div>Your artwork
+            </div>
+            <div class="vis-legend-item">
+              <div class="vis-swatch" style="background:rgba(201,168,76,0.25);border:1px solid #C9A84C;"></div>A4
+              reference (210 × 297 mm)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shipping card -->
+      <div class="calc-card" style="border-left: 3px solid var(--gold);">
+        <h3 style="margin-bottom:0.75rem;">Shipping &amp; handling</h3>
+        <p style="font-size:0.88rem; color:var(--muted); line-height:1.8; margin-bottom:0.75rem;">The price shown above
+          covers the <strong>artwork only</strong>. Shipping and handling are <strong>always calculated
+            separately</strong> and will be quoted after you confirm your order details.</p>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.75;">Factors that affect shipping cost include
+          artwork dimensions, destination (domestic vs. international), and preferred courier. All works are
+          professionally packaged to ensure safe transit.</p>
+      </div>
+
+      <p style="font-size:0.8rem; color:var(--muted); margin-top:0.75rem; text-align:center;">
+        Ready to enquire? <a onclick="showPage('contact')" style="color:var(--terracotta); cursor:pointer;">Get in touch
+          →</a>
+      </p>
+    </div>
+
     <footer>
-      <div class="footer-copy">© 2025 Breanne VanDenBerghe. All rights reserved.</div>
-      <div class="footer-ip">All images are © the artist. Reproduction without written permission is prohibited.</div>
+      <div class="footer-copy">© 2026 Bre VanDenBerghe. All rights reserved.</div>
+      <div class="footer-ip">All prices are in AUD and are estimates only. Shipping quoted separately. Final price
+        confirmed after consultation.</div>
+      <div class="footer-socials">
+        <a href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram — @brevandenberghe</a>
+        <span class="sig">BVDB</span>
+      </div>
     </footer>
   </div>
 
-  <div id="about" class="page">
+  <!-- ══════════════════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════════════════ -->
+  <div id="about" class="page page-offset">
     <div class="about-layout">
       <aside class="about-sidebar">
         <div class="about-portrait">
-          <div class="art-placeholder" style="color:rgba(201,168,76,0.25);">
-            <svg width="40" height="40" viewBox="0 0 48 48">
+          <div class="art-ph" style="color:rgba(201,168,76,0.22);">
+            <svg width="38" height="38" viewBox="0 0 48 48" fill="none">
               <circle cx="24" cy="18" r="8" stroke="#C9A84C" stroke-width="1" />
               <path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#C9A84C" stroke-width="1" />
             </svg>
             Artist portrait<br>[photo to be supplied]
           </div>
         </div>
-        <h1>Breanne VanDenBerghe</h1>
+        <h1>Bre VanDenBerghe</h1>
         <span class="subtitle">Fine Artist</span>
         <div class="about-socials">
-          <a class="about-social-link" href="#"><span class="social-dot"></span>Instagram</a>
-          <a class="about-social-link" href="#"><span class="social-dot"></span>Facebook</a>
-          <a class="about-social-link" href="#"><span class="social-dot"></span>Art Galleria</a>
+          <a class="asl" href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener"><span
+              class="sdot"></span>Instagram — @brevandenberghe</a>
         </div>
       </aside>
-      <div class="about-content">
-        <p class="page-eyebrow">About the artist</p>
+
+      <div class="about-body">
+        <p class="pg-eyebrow">About the artist</p>
         <h2>Rooted in<br>classical tradition</h2>
-        <p>[Artist biography.]</p>
-        <p>[A second paragraph.]</p>
-        <p>[A third paragraph.]</p>
+        <p>[Artist biography to be provided. This section describes the artist's background, training, and practice —
+          2–3 paragraphs, first or third person.]</p>
+        <p>[Second paragraph: primary mediums, recurring themes, notable influences.]</p>
+        <p>[Third paragraph: exhibitions, awards, and notable clients.]</p>
         <div class="about-divider"></div>
         <p
-          style="font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--terracotta); margin-bottom:1rem;">
-          Selected clients &amp; publications (Idea)</p>
+          style="font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--terracotta); margin-bottom:0.9rem;">
+          Selected clients &amp; publications</p>
         <ul class="client-list">
           <li>Client / Publisher Name</li>
           <li>Client / Publisher Name</li>
@@ -1192,89 +1833,89 @@
       </div>
     </div>
     <footer>
-      <div class="footer-copy">© 2025 Breanne VanDenBerghe. All rights reserved.</div>
-      <div class="footer-ip">All images are © the artist. Reproduction without written permission is prohibited.</div>
+      <div class="footer-copy">© 2026 Bre VanDenBerghe. All rights reserved.</div>
+      <div class="footer-ip">All images © the artist. Reproduction without written permission is prohibited.</div>
+      <div class="footer-socials">
+        <a href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram — @brevandenberghe</a>
+
+        <span class="sig">BVDB</span>
+      </div>
     </footer>
   </div>
 
-  <div id="contact" class="page">
+  <!-- ══════════════════════════════════════════════════════
+     CONTACT
+══════════════════════════════════════════════════════ -->
+  <div id="contact" class="page page-offset">
     <div class="contact-layout">
       <div class="contact-left">
         <div>
           <h2>Let's work<br><em>together</em></h2>
-          <p>Available for commissions, licensing, exhibitions, and collaborations. All enquiries welcome - response
-            within 2-3 business days.</p>
+          <p>Available for commissions, licensing, exhibitions, and collaborations. All enquiries welcome — response
+            within 2–3 business days.</p>
           <div class="contact-details">
-            <div class="contact-detail-row">
-              <label>Email</label>
-              <a href="mailto:artist@email.com">artist@email.com</a>
+            <div class="cd-row"><label>Email</label><a href="mailto:brevandenbergheart@gmail.com">artist@email.com</a>
             </div>
-            <div class="contact-detail-row">
-              <label>Location</label>
-              <span>Australia</span>
-            </div>
-            <div class="contact-detail-row">
-              <label>Commissions</label>
-              <span style="color:var(--gold);font-size:0.85rem;font-family:var(--sans);letter-spacing:0.1em;">Currently
-                open</span>
-            </div>
+            <div class="cd-row"><label>Location</label><span>Australia</span></div>
+            <div class="cd-row"><label>Commissions</label><span
+                style="color:var(--gold);font-size:0.85rem;font-family:var(--sans);letter-spacing:0.1em;">Currently
+                open</span></div>
           </div>
         </div>
         <div>
           <p
-            style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:1rem;">
+            style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);opacity:0.55;margin-bottom:0.9rem;">
             Follow the work</p>
-          <div class="contact-social-row">
-            <a class="contact-social-pill" href="#">Instagram</a>
-            <a class="contact-social-pill" href="#">Facebook</a>
-            <a class="contact-social-pill" href="#">Art Galleria</a>
+          <div class="socials-row">
+            <a class="s-pill" href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram</a>
+
           </div>
         </div>
       </div>
+
       <div class="contact-right">
         <h3>Send a message</h3>
         <form onsubmit="return false;">
-          <div class="form-group">
-            <label>Your name</label>
-            <input type="text" placeholder="Jane Smith" />
-          </div>
-          <div class="form-group">
-            <label>Email address</label>
-            <input type="email" placeholder="jane@example.com" />
+          <div class="form-group"><label>Your name</label><input type="text" placeholder="First Last" /></div>
+          <div class="form-group"><label>Email address</label><input type="email" placeholder="firstlast@example.com" />
           </div>
           <div class="form-group">
             <label>Subject</label>
             <select>
               <option>Commission enquiry</option>
               <option>Exhibition / gallery</option>
+              <option>Licensing / reproduction</option>
+              <option></option>
               <option>General enquiry</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>Message</label>
-            <textarea placeholder="Tell me about your project…"></textarea>
+          <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project…"></textarea>
           </div>
           <button class="form-submit" type="submit">Send message →</button>
         </form>
-        <div class="art-galleria-note">
-          <strong>View &amp; purchase work via Art Galleria</strong>
-          Browse the full inventory and enquire about availability through the artist's Art Galleria. [Link to be added
-          once account is set up]
+        <div class="ag-form-note">
+          <strong>View &amp; If you are interested in purchasing Bre's work, please contact us to
+            discuss further.
         </div>
       </div>
     </div>
     <footer>
-      <div class="footer-copy">© 2026 Breanne VanDenBerghe. All rights reserved.</div>
-      <div class="footer-ip">All images are © the artist. Reproduction without written permission is prohibited.</div>
+      <div class="footer-copy">© 2026 Bre VanDenBerghe. All rights reserved.</div>
+      <div class="footer-ip">All images © the artist. Reproduction without written permission is prohibited.</div>
+      <div class="footer-socials">
+        <a href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram — @brevandenberghe</a>
+        <span class="sig">BVDB</span>
+      </div>
     </footer>
   </div>
 
+  <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
     <button class="lb-close" onclick="closeLightbox()">✕</button>
-    <div class="lightbox-inner">
-      <div class="lightbox-img">
-        <div class="art-placeholder">
-          <svg width="48" height="48" viewBox="0 0 48 48">
+    <div class="lb-inner">
+      <div class="lb-img" id="lb-img">
+        <div class="art-ph">
+          <svg width="44" height="44" viewBox="0 0 48 48" fill="none">
             <rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1" />
             <circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1" />
             <path d="M4 32L16 20L26 30L34 22L44 32" stroke="#C9A84C" stroke-width="1" />
@@ -1282,135 +1923,341 @@
           [Full-resolution image]
         </div>
       </div>
-      <div class="lightbox-info">
+      <div class="lb-info">
         <h2 id="lb-title">Title</h2>
         <p class="lb-meta" id="lb-meta">Medium · Dimensions · Year</p>
-        <p id="lb-desc">Description of the work.</p>
-        <a class="hero-cta" onclick="showPage('contact'); closeLightbox()">Enquire about this work</a>
+        <p class="lb-desc" id="lb-desc">Description.</p>
+        <button class="cta-btn" onclick="showPage('contact'); closeLightbox()">Enquire about this work</button>
       </div>
     </div>
   </div>
 
+  <!-- ══════════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════════ -->
   <script>
-
+    /* ── Artwork data ──────────────────────────────────────
+       TO ADD A WORK: copy one object, paste at the end of
+       the array, update the fields, save, redeploy.
+       featured: true  → appears on the home page strip
+       tags: array     → controls gallery filter buttons
+    ─────────────────────────────────────────────────────── */
     const works = [
-      { title: 'Placeholder Name 1', medium: 'Watercolour', year: 2024, tags: ['watercolour'], dims: '38 × 56 cm', desc: 'Description Placeholder 1.', image: 'images/work1.jpg', featured: true },
-      { title: 'Placeholder Name 2', medium: 'Watercolour', year: 2023, tags: ['watercolour'], dims: '30 × 42 cm', desc: 'Description Placeholder 2.', image: '', featured: true },
-      { title: 'Placeholder Name 3', medium: 'Oil on linen', year: 2024, tags: ['oil'], dims: '60 × 80 cm', desc: 'Description Placeholder 3.', image: '', featured: true },
-      { title: 'Placeholder Name 4', medium: 'Oil on linen', year: 2024, tags: ['oil'], dims: '45 × 60 cm', desc: 'Description Placeholder 4.', image: '', featured: true },
-      { title: 'Placeholder Name 5', medium: 'Mixed media', year: 2023, tags: ['mixed'], dims: '30 × 42 cm', desc: 'Description Placeholder 5.', image: '', featured: false },
-      { title: 'Placeholder Name 6', medium: 'Watercolour', year: 2023, tags: ['watercolour'], dims: '38 × 56 cm', desc: 'Description Placeholder 6.', image: '', featured: false },
-      { title: 'Placeholder Name 7', medium: 'Mixed media', year: 2022, tags: ['mixed'], dims: '21 × 30 cm', desc: 'Description Placeholder 7.', image: '', featured: false },
-      { title: 'Placeholder Name 8', medium: 'Watercolour', year: 2024, tags: ['commission', 'watercolour'], dims: '30 × 40 cm', desc: 'Description Placeholder 8.', image: '', featured: false },
-      { title: 'Placeholder Name 9', medium: 'Digital & mixed', year: 2023, tags: ['commission', 'mixed'], dims: '—', desc: 'Description Placeholder 9.', image: '', featured: false },
+      { title: 'Placeholder Name 1', medium: 'Watercolour', year: 2024, tags: ['watercolour'], dims: '38 × 56 cm', desc: 'Description placeholder 1.', featured: true },
+      { title: 'Placeholder Name 2', medium: 'Watercolour', year: 2023, tags: ['watercolour'], dims: '30 × 42 cm', desc: 'Description placeholder 2.', featured: true },
+      { title: 'Placeholder Name 3', medium: 'Oil on linen', year: 2024, tags: ['oil'], dims: '60 × 80 cm', desc: 'Description placeholder 3.', featured: true },
+      { title: 'Placeholder Name 4', medium: 'Oil on linen', year: 2024, tags: ['oil'], dims: '45 × 60 cm', desc: 'Description placeholder 4.', featured: true },
+      { title: 'Placeholder Name 5', medium: 'Mixed media', year: 2023, tags: ['mixed'], dims: '30 × 42 cm', desc: 'Description placeholder 5.', featured: false },
+      { title: 'Placeholder Name 6', medium: 'Watercolour', year: 2023, tags: ['watercolour'], dims: '38 × 56 cm', desc: 'Description placeholder 6.', featured: false },
+      { title: 'Placeholder Name 7', medium: 'Mixed media', year: 2022, tags: ['mixed'], dims: '21 × 30 cm', desc: 'Description placeholder 7.', featured: false },
+      { title: 'Placeholder Name 8', medium: 'Watercolour', year: 2024, tags: ['commission', 'watercolour'], dims: '30 × 40 cm', desc: 'Description placeholder 8.', featured: false },
+      { title: 'Placeholder Name 9', medium: 'Digital & mixed', year: 2023, tags: ['commission', 'mixed'], dims: '—', desc: 'Description placeholder 9.', featured: false },
     ];
 
-    let currentFilter = 'all';
+    /* ── SVG placeholder icon (reused) ──────────────────── */
+    const phSvg = `<svg width="34" height="34" viewBox="0 0 48 48" fill="none">
+    <rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1"/>
+    <circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1"/>
+    <path d="M4 32L16 20L26 30L34 22L44 32" stroke="#C9A84C" stroke-width="1"/>
+  </svg>`;
 
+    /* ── Page routing ────────────────────────────────────── */
     function showPage(id) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-      document.querySelectorAll('.nav-links a').forEach(a => {
-        a.classList.toggle('active', a.dataset.page === id);
+      document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(a => {
+        a.classList.toggle('active', a.dataset && a.dataset.page === id);
       });
-      window.scrollTo({ top: 0 });
+      window.scrollTo({ top: 0, behavior: 'instant' });
       if (id === 'gallery') renderGallery('all');
+      closeMobileMenu();
     }
 
-    window.addEventListener('scroll', () => {
-      document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 30);
-    });
+    /* ── Mobile menu ─────────────────────────────────────── */
+    function toggleMenu() {
+      const btn = document.getElementById('hamburger');
+      const drawer = document.getElementById('mobile-nav');
+      btn.classList.toggle('open');
+      drawer.classList.toggle('open');
+    }
+    function closeMobileMenu() {
+      document.getElementById('hamburger').classList.remove('open');
+      document.getElementById('mobile-nav').classList.remove('open');
+    }
+    function navTo(id) { showPage(id); }
 
+    /* ── Nav shadow on scroll ────────────────────────────── */
+    window.addEventListener('scroll', () => {
+      document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    /* ── Featured strip ──────────────────────────────────── */
     function renderFeatured() {
       const grid = document.getElementById('featured-grid');
-      const featuredWorks = works.filter(w => w.featured);
-      grid.innerHTML = featuredWorks.map(w => `
-        <div class="feat-item" onclick="openLightbox('${w.title}','${w.medium}','${w.medium} · ${w.dims} · ${w.year}','${w.desc}')">
-          <div class="feat-thumb">
-            <div class="art-placeholder">
-              <svg width="36" height="36" viewBox="0 0 48 48"><rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1"/><circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1"/><path d="M4 32L16 20L26 30L34 22L44 32" stroke="#C9A84C" stroke-width="1"/></svg>
-              Artwork image
-            </div>
-          </div>
-          <div class="feat-info">
-            <h3>${w.title}</h3>
-            <p>${w.medium} · ${w.year}</p>
-          </div>
+      const featured = works.filter(w => w.featured);
+      grid.innerHTML = featured.length ? featured.map(w => `
+      <div class="feat-card" onclick="openLightbox('${esc(w.title)}','${esc(w.medium)}','${esc(w.medium)} · ${esc(w.dims)} · ${w.year}','${esc(w.desc)}','${esc(w.image)}')">
+        <div class="feat-thumb">${w.image
+          ? `<img src="${w.image}" alt="${esc(w.title)}" style="width:100%;height:100%;object-fit:cover;">`
+          : `<div class="art-ph">${phSvg}Artwork image</div>`}
         </div>
-      `).join('');
+        <div class="feat-label"><h3>${w.title}</h3><p>${w.medium} · ${w.year}</p></div>
+      </div>
+    `).join('') : '';
     }
 
+    /* ── Hero title ──────────────────────────────────────── */
     function renderHero() {
-      const heroTitle = document.getElementById('hero-title');
-      const featuredWork = works.find(w => w.featured);
-      if (featuredWork) {
-        heroTitle.textContent = featuredWork.title + ' — ' + featuredWork.medium;
-      }
+      const fw = works.find(w => w.featured);
+      if (fw) document.getElementById('hero-title').textContent = fw.title + ' — ' + fw.medium;
     }
 
+    /* ── Gallery ─────────────────────────────────────────── */
     function renderGallery(filter) {
-      currentFilter = filter;
-      const grid = document.getElementById('gallery-grid');
       const filtered = filter === 'all' ? works : works.filter(w => w.tags.includes(filter));
-      grid.innerHTML = filtered.map(w => `
-        <div class="gallery-card" onclick="openLightbox('${w.title}','${w.medium}','${w.medium} · ${w.dims} · ${w.year}','${w.desc}')">
-          <div class="gallery-thumb">
-            <div class="art-placeholder">
-              <svg width="36" height="36" viewBox="0 0 48 48"><rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1"/><circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1"/><path d="M4 32L16 20L26 30L34 22L44 32" stroke="#C9A84C" stroke-width="1"/></svg>
-              [Image]
-            </div>
-          </div>
-          <div class="gallery-overlay">
-            <div class="gallery-overlay-text">
-              <h3>${w.title}</h3>
-              <p>${w.medium} · ${w.year}</p>
-            </div>
-          </div>
-          <div class="gallery-label">
-            <h3>${w.title}</h3>
-            <p>${w.medium} · ${w.year}</p>
-          </div>
+      document.getElementById('gallery-grid').innerHTML = filtered.length ? filtered.map(w => `
+      <div class="gcard" onclick="openLightbox('${esc(w.title)}','${esc(w.medium)}','${esc(w.medium)} · ${esc(w.dims)} · ${w.year}','${esc(w.desc)}','${esc(w.image)}')">
+        <div class="gthumb">${w.image
+          ? `<img src="${w.image}" alt="${esc(w.title)}" style="width:100%;height:100%;object-fit:cover;">`
+          : `<div class="art-ph">${phSvg}[Image]</div>`}
         </div>
-      `).join('');
+        <div class="govlay"><div><h3>${w.title}</h3><p>${w.medium} · ${w.year}</p></div></div>
+        <div class="glabel"><h3>${w.title}</h3><p>${w.medium} · ${w.year}</p></div>
+      </div>
+    `).join('') : `<p style="color:var(--muted);font-size:0.85rem;padding:2rem;grid-column:1/-1;">No works in this category yet.</p>`;
     }
 
     function filterGallery(filter, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       renderGallery(filter);
     }
 
-    function openLightbox(title, medium, meta, desc) {
+    /* ── Lightbox ────────────────────────────────────────── */
+    function openLightbox(title, medium, meta, desc, image) {
       document.getElementById('lb-title').textContent = title;
       document.getElementById('lb-meta').textContent = meta;
       document.getElementById('lb-desc').textContent = desc;
+      const imgEl = document.getElementById('lb-img');
+      imgEl.innerHTML = image
+        ? `<img src="${image}" alt="${title}" style="width:100%;height:100%;object-fit:contain;">`
+        : `<div class="art-ph">${phSvg}[Full-resolution image]</div>`;
       document.getElementById('lightbox').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
-
     function closeLightbox(e) {
       if (e && e.target !== document.getElementById('lightbox') && !e.target.classList.contains('lb-close')) return;
       document.getElementById('lightbox').classList.remove('open');
       document.body.style.overflow = '';
     }
 
-    renderGallery('all');
-    renderFeatured();
-    renderHero();
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
-</script>
+    /* ── Price calculator ────────────────────────────────── */
+    const SQ_IN_TO_SQ_CM = 6.4516;
+    const MIN_IN = 4; // minimum 4×4 inches
+    const A4_W_IN = 8.268; // A4 width in inches (210mm)
+    const A4_H_IN = 11.693; // A4 height in inches (297mm)
+    let currentUnit = 'in';
 
-   <!-- Netlify Identity — handles invitation redirects -->
+    function setUnit(unit) {
+      currentUnit = unit;
+      document.getElementById('btn-in').classList.toggle('active', unit === 'in');
+      document.getElementById('btn-cm').classList.toggle('active', unit === 'cm');
+      document.getElementById('w-label').textContent = unit === 'in' ? 'Width (inches)' : 'Width (cm)';
+      document.getElementById('h-label').textContent = unit === 'in' ? 'Height (inches)' : 'Height (cm)';
+      document.getElementById('inp-w').placeholder = unit === 'in' ? 'e.g. 12' : 'e.g. 30';
+      document.getElementById('inp-h').placeholder = unit === 'in' ? 'e.g. 16' : 'e.g. 40';
+      calcPrice();
+    }
+
+    function calcPrice() {
+      const wRaw = parseFloat(document.getElementById('inp-w').value) || 0;
+      const hRaw = parseFloat(document.getElementById('inp-h').value) || 0;
+      const rate = parseFloat(document.getElementById('sel-medium').value);
+      const medLabel = document.getElementById('sel-medium').selectedOptions[0].text.split(' —')[0];
+
+      const priceEl = document.getElementById('result-price');
+      const breakdownEl = document.getElementById('result-breakdown');
+      const tagEl = document.getElementById('result-tag');
+      const warnEl = document.getElementById('shipping-warn');
+      const minWarn = document.getElementById('min-warn');
+
+      // Convert input to inches for all calculations
+      let wIn, hIn;
+      if (currentUnit === 'in') {
+        wIn = wRaw; hIn = hRaw;
+      } else {
+        wIn = wRaw / 2.54; hIn = hRaw / 2.54;
+      }
+
+      // Draw visualiser regardless (shows A4 reference even with no input)
+      drawVisualiser(wIn, hIn);
+
+      if (!wRaw || !hRaw) {
+        priceEl.textContent = '—';
+        breakdownEl.textContent = 'Enter dimensions above';
+        tagEl.textContent = '';
+        warnEl.style.display = 'none';
+        minWarn.classList.remove('show');
+        return;
+      }
+
+      // Minimum size check
+      const belowMin = wIn < MIN_IN || hIn < MIN_IN;
+      minWarn.classList.toggle('show', belowMin);
+
+      const areaSqIn = wIn * hIn;
+      let displayArea, displayUnit;
+      if (currentUnit === 'in') {
+        displayArea = areaSqIn.toFixed(2); displayUnit = 'sq in';
+      } else {
+        displayArea = (wRaw * hRaw).toFixed(2); displayUnit = 'sq cm';
+      }
+
+      const price = areaSqIn * rate;
+      priceEl.textContent = '$' + price.toFixed(2) + ' AUD';
+      breakdownEl.textContent = `${displayArea} ${displayUnit} × $${rate.toFixed(2)}/sq in (${medLabel})`;
+      tagEl.textContent = belowMin ? 'Below minimum' : 'Estimate only';
+      warnEl.style.display = belowMin ? 'none' : 'block';
+    }
+
+    function drawVisualiser(wIn, hIn) {
+      const canvas = document.getElementById('vis-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const CW = canvas.width, CH = canvas.height;
+      ctx.clearRect(0, 0, CW, CH);
+
+      // Work out scale: fit A4 and artwork into the canvas with padding
+      const PAD = 24;
+      const refW = A4_W_IN, refH = A4_H_IN;
+      const artW = wIn || 0, artH = hIn || 0;
+      const maxW = Math.max(refW, artW, 1);
+      const maxH = Math.max(refH, artH, 1);
+      const scale = Math.min((CW - PAD * 2) / maxW, (CH - PAD * 2) / maxH);
+
+      // A4 dimensions in px
+      const a4Px = { w: refW * scale, h: refH * scale };
+      // Centre A4 in canvas
+      const originX = (CW - a4Px.w) / 2;
+      const originY = (CH - a4Px.h) / 2;
+
+      // Draw A4 reference (gold, translucent)
+      ctx.save();
+      ctx.fillStyle = 'rgba(201,168,76,0.13)';
+      ctx.strokeStyle = 'rgba(201,168,76,0.6)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([5, 4]);
+      ctx.fillRect(originX, originY, a4Px.w, a4Px.h);
+      ctx.strokeRect(originX, originY, a4Px.w, a4Px.h);
+      ctx.restore();
+
+      // A4 label (top right corner inside)
+      ctx.save();
+      ctx.font = '500 11px Jost, sans-serif';
+      ctx.fillStyle = 'rgba(201,168,76,0.7)';
+      ctx.textAlign = 'right';
+      ctx.fillText('A4 (210 × 297 mm)', originX + a4Px.w - 6, originY + 16);
+      ctx.restore();
+
+      // Draw artwork if dimensions given
+      if (artW > 0 && artH > 0) {
+        const artPx = { w: artW * scale, h: artH * scale };
+        // Overlay artwork anchored to bottom-left of A4 (like physically placing it)
+        const artX = originX;
+        const artY = originY + a4Px.h - artPx.h;
+
+        // Artwork fill with diagonal placeholder lines
+        ctx.save();
+        ctx.fillStyle = 'rgba(184,92,56,0.18)';
+        ctx.strokeStyle = 'rgba(184,92,56,0.8)';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([]);
+        ctx.fillRect(artX, artY, artPx.w, artPx.h);
+        ctx.strokeRect(artX, artY, artPx.w, artPx.h);
+
+        // Diagonal cross lines inside artwork rect (like a placeholder image frame)
+        ctx.strokeStyle = 'rgba(184,92,56,0.3)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(artX, artY); ctx.lineTo(artX + artPx.w, artY + artPx.h);
+        ctx.moveTo(artX + artPx.w, artY); ctx.lineTo(artX, artY + artPx.h);
+        ctx.stroke();
+        ctx.restore();
+
+        // Artwork dimension label
+        ctx.save();
+        ctx.font = '500 11px Jost, sans-serif';
+        ctx.fillStyle = 'rgba(184,92,56,0.9)';
+        ctx.textAlign = 'left';
+        let dimLabel;
+        if (currentUnit === 'in') {
+          dimLabel = `${artW}" × ${artH}"`;
+        } else {
+          dimLabel = `${document.getElementById('inp-w').value} × ${document.getElementById('inp-h').value} cm`;
+        }
+        ctx.fillText(dimLabel, artX + 5, artY + artPx.h - 7);
+        ctx.restore();
+      } else {
+        // Prompt text when no artwork dimensions
+        ctx.save();
+        ctx.font = '300 12px Jost, sans-serif';
+        ctx.fillStyle = 'rgba(122,116,104,0.5)';
+        ctx.textAlign = 'center';
+        ctx.fillText('Enter dimensions above to see your artwork size', CW / 2, CH / 2 + 4);
+        ctx.restore();
+      }
+    }
+
+    /* ── Escape helper (prevents XSS in onclick strings) ── */
+    function esc(str) { return str.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+
+    /* ── Init — load works then render everything ────────── */
+    async function init() {
+      // Show loading state in gallery
+      const grid = document.getElementById('gallery-grid');
+      if (grid) grid.innerHTML = `<p style="color:var(--muted);font-size:0.85rem;padding:2rem;grid-column:1/-1;">Loading gallery…</p>`;
+
+      try {
+        const res = await fetch('/works.json');
+        if (res.ok) {
+          const data = await res.json();
+          works = data.map(w => ({
+            title: w.title || 'Untitled',
+            medium: w.medium || '',
+            year: w.year || '',
+            tags: Array.isArray(w.tags) ? w.tags : [],
+            dims: (w.width && w.height) ? `${w.width} × ${w.height} cm` : '—',
+            desc: w.description || '',
+            image: w.image || '',
+            featured: w.featured || false,
+          }));
+        } else {
+          throw new Error('works.json not found');
+        }
+      } catch (e) {
+        // Fallback: use placeholder data until works.json exists
+        console.warn('Using placeholder data:', e.message);
+        works = [
+          { title: 'Placeholder Name 1', medium: 'Watercolour', year: 2024, tags: ['watercolour'], dims: '38 × 56 cm', desc: 'Description placeholder 1.', image: '', featured: true },
+          { title: 'Placeholder Name 2', medium: 'Watercolour', year: 2023, tags: ['watercolour'], dims: '30 × 42 cm', desc: 'Description placeholder 2.', image: '', featured: true },
+          { title: 'Placeholder Name 3', medium: 'Oil', year: 2024, tags: ['oil'], dims: '60 × 80 cm', desc: 'Description placeholder 3.', image: '', featured: true },
+          { title: 'Placeholder Name 4', medium: 'Oil', year: 2024, tags: ['oil'], dims: '45 × 60 cm', desc: 'Description placeholder 4.', image: '', featured: true },
+          { title: 'Placeholder Name 5', medium: 'Mixed media', year: 2023, tags: ['mixed'], dims: '30 × 42 cm', desc: 'Description placeholder 5.', image: '', featured: false },
+          { title: 'Placeholder Name 6', medium: 'Watercolour', year: 2023, tags: ['watercolour'], dims: '38 × 56 cm', desc: 'Description placeholder 6.', image: '', featured: false },
+          { title: 'Placeholder Name 7', medium: 'Mixed media', year: 2022, tags: ['mixed'], dims: '21 × 30 cm', desc: 'Description placeholder 7.', image: '', featured: false },
+          { title: 'Placeholder Name 8', medium: 'Watercolour', year: 2024, tags: ['commission', 'watercolour'], dims: '30 × 40 cm', desc: 'Description placeholder 8.', image: '', featured: false },
+          { title: 'Placeholder Name 9', medium: 'Digital & mixed', year: 2023, tags: ['commission', 'mixed'], dims: '—', desc: 'Description placeholder 9.', image: '', featured: false },
+        ];
+      }
+
+      renderGallery('all');
+      renderFeatured();
+      renderHero();
+    }
+
+    init();
+  </script>
+  <!-- Netlify Identity — handles invitation redirects -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
     if (window.netlifyIdentity) {
@@ -1423,7 +2270,6 @@
       });
     }
   </script>
-  
 </body>
 
 </html>
