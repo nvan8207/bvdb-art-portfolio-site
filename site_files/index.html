@@ -1942,17 +1942,7 @@
        featured: true  → appears on the home page strip
        tags: array     → controls gallery filter buttons
     ─────────────────────────────────────────────────────── */
-    const works = [
-      { title: 'Placeholder Name 1', medium: 'Watercolour', year: 2024, tags: ['watercolour'], dims: '38 × 56 cm', desc: 'Description placeholder 1.', featured: true },
-      { title: 'Placeholder Name 2', medium: 'Watercolour', year: 2023, tags: ['watercolour'], dims: '30 × 42 cm', desc: 'Description placeholder 2.', featured: true },
-      { title: 'Placeholder Name 3', medium: 'Oil on linen', year: 2024, tags: ['oil'], dims: '60 × 80 cm', desc: 'Description placeholder 3.', featured: true },
-      { title: 'Placeholder Name 4', medium: 'Oil on linen', year: 2024, tags: ['oil'], dims: '45 × 60 cm', desc: 'Description placeholder 4.', featured: true },
-      { title: 'Placeholder Name 5', medium: 'Mixed media', year: 2023, tags: ['mixed'], dims: '30 × 42 cm', desc: 'Description placeholder 5.', featured: false },
-      { title: 'Placeholder Name 6', medium: 'Watercolour', year: 2023, tags: ['watercolour'], dims: '38 × 56 cm', desc: 'Description placeholder 6.', featured: false },
-      { title: 'Placeholder Name 7', medium: 'Mixed media', year: 2022, tags: ['mixed'], dims: '21 × 30 cm', desc: 'Description placeholder 7.', featured: false },
-      { title: 'Placeholder Name 8', medium: 'Watercolour', year: 2024, tags: ['commission', 'watercolour'], dims: '30 × 40 cm', desc: 'Description placeholder 8.', featured: false },
-      { title: 'Placeholder Name 9', medium: 'Digital & mixed', year: 2023, tags: ['commission', 'mixed'], dims: '—', desc: 'Description placeholder 9.', featured: false },
-    ];
+  
 
     /* ── SVG placeholder icon (reused) ──────────────────── */
     const phSvg = `<svg width="34" height="34" viewBox="0 0 48 48" fill="none">
@@ -2209,7 +2199,7 @@
     }
 
     /* ── Escape helper (prevents XSS in onclick strings) ── */
-    function esc(str) { return str.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+    function esc(str) { return str ? String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;') : ''; }
 
     /* ── Init — load works then render everything ────────── */
     async function init() {
