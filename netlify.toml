@@ -1,7 +1,4 @@
 
 [build]
   publish = "site_files"
-  command = ""
-
-[[plugins]]
-  package = "./netlify/build-works-json.js"
+  command = "node netlify/build-works-json.js"
