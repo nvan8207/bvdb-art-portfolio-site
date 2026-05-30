@@ -1374,9 +1374,6 @@
         padding: 2.5rem 1.75rem 1.25rem;
       }
 
-
-    }
-
     .filter-bar {
       padding: 1rem 1.75rem;
     }
@@ -1434,7 +1431,7 @@
     .footer-ip {
       text-align: left;
     }
-    }
+    
 
     @media (max-width: 560px) {
       .featured-grid {
@@ -1621,12 +1618,6 @@
       <p class="pg-eyebrow">Works</p>
       <h1 class="pg-title">Gallery</h1>
     </div>
-
-    <!--
-
-  -->
-
-  </div>
 
   <div class="filter-bar">
     <button class="fbtn active" onclick="filterGallery('all',this)">All Works</button>
@@ -1894,9 +1885,9 @@
           <button class="form-submit" type="submit">Send message →</button>
         </form>
         <div class="ag-form-note">
-          <strong>View &amp; If you are interested in purchasing Bre's work, please contact us to
-            discuss further.
-        </div>
+  <strong>Purchasing original works</strong>
+  If you are interested in purchasing Bre's work, please contact us to discuss further.
+</div> 
       </div>
     </div>
     <footer>
@@ -1943,7 +1934,8 @@
        tags: array     → controls gallery filter buttons
     ─────────────────────────────────────────────────────── */
   
-
+let works = [];
+    
     /* ── SVG placeholder icon (reused) ──────────────────── */
     const phSvg = `<svg width="34" height="34" viewBox="0 0 48 48" fill="none">
     <rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1"/>
