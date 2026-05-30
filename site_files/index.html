@@ -1563,20 +1563,21 @@
   <div id="home" class="page active">
     <section class="hero">
       <div class="hero-left">
-        <div class="hero-art-bg">
-          <div class="ph-label">
-            <svg width="44" height="44" viewBox="0 0 48 48" fill="none">
-              <rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1" />
-              <circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1" />
-              <path d="M4 32L16 20L26 30L34 22L44 32" stroke="#C9A84C" stroke-width="1" />
-            </svg>
-            Featured artwork<br>[Image to be provided]
-          </div>
-        </div>
-        <div class="hero-caption">
-          <p>Featured work</p>
-          <h2 id="hero-title">Placeholder Title</h2>
-        </div>
+  <div class="hero-art-bg" id="hero-art-bg">
+    <div class="ph-label">
+      <svg width="44" height="44" viewBox="0 0 48 48" fill="none">
+        <rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1" />
+        <circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1" />
+        <path d="M4 32L16 20L26 30L34 22L44 32" stroke="#C9A84C" stroke-width="1" />
+      </svg>
+      Featured artwork<br>[Image to be provided]
+    </div>
+  </div>
+  <div class="hero-caption">
+    <p>Featured work</p>
+    <h2 id="hero-title">Placeholder Title</h2>
+  </div>
+</div>
       </div>
 
       <div class="hero-right">
@@ -1991,8 +1992,20 @@ let works = [];
     /* ── Hero title ──────────────────────────────────────── */
     function renderHero() {
       const fw = works.find(w => w.featured);
-      if (fw) document.getElementById('hero-title').textContent = fw.title + ' — ' + fw.medium;
-    }
+      if (!fw) return;
+  
+  // Update the title caption
+  document.getElementById('hero-title').textContent = fw.title + ' — ' + fw.medium;
+  
+  // Swap placeholder for real image if one exists
+  if (fw.image) {
+    const bg = document.getElementById('hero-art-bg');
+    bg.style.backgroundImage = `url('${fw.image}')`;
+    bg.style.backgroundSize = 'cover';
+    bg.style.backgroundPosition = 'center';
+    bg.innerHTML = ''; // removes the placeholder SVG and text
+  }
+}
 
     /* ── Gallery ─────────────────────────────────────────── */
     function renderGallery(filter) {
