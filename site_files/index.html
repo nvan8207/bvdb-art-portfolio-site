@@ -6,13 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bre VanDenBerghe — Fine Art | BVDB</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    /* ═══════════════════════════════════════════════════
-       TOKENS
-    ═══════════════════════════════════════════════════ */
     :root {
       --ivory: #F5F0E8;
       --ivory-dark: #EBE4D6;
@@ -28,1511 +23,261 @@
       --banner-h: 0px;
     }
 
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-
-    body {
-      background: var(--ivory);
-      color: var(--charcoal);
-      font-family: var(--sans);
-      font-weight: 300;
-      line-height: 1.7;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-
-
-    /* ═══════════════════════════════════════════════════
-       NAV
-    ═══════════════════════════════════════════════════ */
-    nav {
-      position: fixed;
-      top: var(--banner-h);
-      left: 0;
-      right: 0;
-      z-index: 400;
-      height: var(--nav-h);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 3rem;
-      background: var(--ivory);
-      border-bottom: 1px solid var(--ivory-dark);
-      transition: box-shadow 0.3s;
-    }
-
-    nav.scrolled {
-      box-shadow: 0 2px 20px rgba(28, 26, 23, 0.08);
-    }
-
-    .nav-logo {
-      font-family: var(--serif);
-      font-size: 1.3rem;
-      font-weight: 300;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .nav-logo span {
-      color: var(--terracotta);
-    }
-
-    /* On mobile, hide the full name and show initials only */
-    .nav-logo .logo-full {
-      display: inline;
-    }
-
-    .nav-logo .logo-initials {
-      display: none;
-    }
-
-    /* Desktop nav links */
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.72rem;
-      font-weight: 400;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      cursor: pointer;
-      position: relative;
-      padding-bottom: 2px;
-      transition: color 0.25s;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--terracotta);
-      transition: width 0.3s;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--charcoal);
-    }
-
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
-      width: 100%;
-    }
-
-    /* Hamburger (mobile only) */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-      background: none;
-      border: none;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 1.5px;
-      background: var(--charcoal);
-      transition: all 0.3s;
-    }
-
-    .hamburger.open span:nth-child(1) {
-      transform: translateY(6.5px) rotate(45deg);
-    }
-
-    .hamburger.open span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.open span:nth-child(3) {
-      transform: translateY(-6.5px) rotate(-45deg);
-    }
-
-    /* Mobile nav drawer */
-    .mobile-nav {
-      display: none;
-      position: fixed;
-      top: calc(var(--banner-h) + var(--nav-h));
-      left: 0;
-      right: 0;
-      z-index: 390;
-      background: var(--ivory);
-      border-bottom: 1px solid var(--ivory-dark);
-      padding: 1.5rem 2rem;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .mobile-nav.open {
-      display: flex;
-    }
-
-    .mobile-nav a {
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .mobile-nav a:hover,
-    .mobile-nav a.active {
-      color: var(--charcoal);
-    }
-
-    /* ═══════════════════════════════════════════════════
-       PAGE SYSTEM
-    ═══════════════════════════════════════════════════ */
-    .page-offset {
-      padding-top: calc(var(--banner-h) + var(--nav-h));
-    }
-
-    .page {
-      display: none;
-      min-height: 100vh;
-      animation: fadein 0.45s ease;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    @keyframes fadein {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    /* ═══════════════════════════════════════════════════
-       HOME — HERO
-    ═══════════════════════════════════════════════════ */
-    #home {
-      padding-top: 0;
-    }
-
-    .hero {
-      height: 100vh;
-      min-height: 500px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding-top: calc(var(--banner-h) + var(--nav-h));
-    }
-
-    .hero-left {
-      background: var(--charcoal-mid);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: flex-end;
-      padding: 2.5rem;
-    }
-
-    .hero-art-bg {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #2E2B26 0%, #1C1A17 40%, #3D2B1F 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-art-bg::before {
-      content: '';
-      position: absolute;
-      width: 65%;
-      height: 65%;
-      border: 1px solid rgba(201, 168, 76, 0.18);
-      border-radius: 1px;
-    }
-
-    .ph-label {
-      font-family: var(--serif);
-      font-size: 0.78rem;
-      color: rgba(201, 168, 76, 0.3);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      text-align: center;
-      line-height: 2.2;
-    }
-
-    .hero-caption {
-      position: relative;
-      z-index: 2;
-      color: var(--gold-light);
-    }
-
-    .hero-caption p {
-      font-family: var(--serif);
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-      opacity: 0.55;
-      font-style: italic;
-      margin-bottom: 0.2rem;
-    }
-
-    .hero-caption h2 {
-      font-family: var(--serif);
-      font-size: 1.05rem;
-      font-weight: 300;
-      letter-spacing: 0.06em;
-    }
-
-    .hero-right {
-      background: var(--ivory);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 3rem 4rem;
-      position: relative;
-    }
-
-    .hero-right::before {
-      content: '';
-      position: absolute;
-      top: 3rem;
-      left: -1px;
-      height: calc(100% - 6rem);
-      width: 1px;
-      background: var(--gold);
-      opacity: 0.35;
-    }
-
-    .hero-eyebrow {
-      font-size: 0.65rem;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--terracotta);
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-title {
-      font-family: var(--serif);
-      font-size: clamp(2.4rem, 5vw, 5rem);
-      font-weight: 300;
-      line-height: 1.05;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-title em {
-      font-style: italic;
-      color: var(--terracotta);
-    }
-
-    .hero-tagline {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.85;
-      max-width: 300px;
-      margin-bottom: 2.5rem;
-    }
-
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--charcoal);
-      cursor: pointer;
-      transition: gap 0.3s, color 0.3s;
-      background: none;
-      border: none;
-      font-family: var(--sans);
-      padding: 0;
-    }
-
-    .cta-btn::after {
-      content: '→';
-      font-size: 0.95rem;
-      transition: transform 0.3s;
-    }
-
-    .cta-btn:hover {
-      gap: 1rem;
-      color: var(--terracotta);
-    }
-
-    .cta-btn:hover::after {
-      transform: translateX(4px);
-    }
-
-    .hero-socials {
-      position: absolute;
-      bottom: 2.5rem;
-      right: 3rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.9rem;
-    }
-
-    .hero-socials::before {
-      content: '';
-      width: 1px;
-      height: 2.5rem;
-      background: var(--muted);
-      opacity: 0.25;
-    }
-
-    .s-icon {
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      writing-mode: vertical-rl;
-      transition: color 0.25s;
-    }
-
-    .s-icon:hover {
-      color: var(--terracotta);
-    }
-
-    /* ═══════════════════════════════════════════════════
-       HOME — SELECTED WORKS STRIP
-    ═══════════════════════════════════════════════════ */
-    .featured-strip {
-      padding: 4rem 3rem 5rem;
-    }
-
-    .strip-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--ivory-dark);
-      padding-bottom: 1rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .strip-title {
-      font-family: var(--serif);
-      font-size: 2rem;
-      font-weight: 300;
-    }
-
-    .strip-link {
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--terracotta);
-      cursor: pointer;
-    }
-
-    .strip-link:hover {
-      opacity: 0.7;
-    }
-
-    .featured-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 0.85rem;
-    }
-
-    .feat-card {
-      background: var(--charcoal);
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .feat-card:first-child {
-      grid-row: 1 / 3;
-    }
-
-    .feat-thumb {
-      width: 100%;
-      aspect-ratio: 1/1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      transition: transform 0.5s ease;
-      background: var(--charcoal);
-    }
-
-    .feat-card:first-child .feat-thumb {
-      aspect-ratio: 3/4;
-    }
-
-    .feat-card:hover .feat-thumb {
-      transform: scale(1.04);
-    }
-
-    .art-ph {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      color: rgba(201, 168, 76, 0.25);
-      font-family: var(--serif);
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      gap: 0.6rem;
-    }
-
-    .art-ph svg {
-      opacity: 0.18;
-    }
-
-    .feat-label {
-      padding: 0.75rem 1rem;
-      background: var(--charcoal-mid);
-    }
-
-    .feat-label h3 {
-      font-family: var(--serif);
-      font-size: 0.95rem;
-      font-weight: 400;
-      color: var(--gold-light);
-      margin-bottom: 0.15rem;
-    }
-
-    .feat-label p {
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-    }
-
-    /* ═══════════════════════════════════════════════════
-       GALLERY PAGE
-    ═══════════════════════════════════════════════════ */
-    .gallery-hdr {
-      padding: 3rem 3rem 1.5rem;
-      border-bottom: 1px solid var(--ivory-dark);
-    }
-
-    .pg-eyebrow {
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--terracotta);
-      margin-bottom: 0.5rem;
-    }
-
-    .pg-title {
-      font-family: var(--serif);
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 300;
-      line-height: 1.1;
-    }
-
-
-
-    .filter-bar {
-      padding: 1.25rem 3rem;
-      display: flex;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-      border-bottom: 1px solid var(--ivory-dark);
-    }
-
-    .fbtn {
-      font-family: var(--sans);
-      font-size: 0.68rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      border: 1px solid var(--ivory-dark);
-      background: transparent;
-      color: var(--muted);
-      padding: 0.4rem 1rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .fbtn:hover,
-    .fbtn.active {
-      background: var(--charcoal);
-      border-color: var(--charcoal);
-      color: var(--ivory);
-    }
-
-    .gallery-grid {
-      padding: 2rem 3rem 5rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.1rem;
-    }
-
-    .gcard {
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      background: var(--charcoal);
-    }
-
-    .gthumb {
-      width: 100%;
-      aspect-ratio: 3/4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      transition: transform 0.5s ease;
-    }
-
-    .gcard:hover .gthumb {
-      transform: scale(1.04);
-    }
-
-    .govlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(28, 26, 23, 0.85) 0%, transparent 55%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      display: flex;
-      align-items: flex-end;
-      padding: 1.25rem;
-    }
-
-    .gcard:hover .govlay {
-      opacity: 1;
-    }
-
-    .govlay h3 {
-      font-family: var(--serif);
-      font-size: 1.05rem;
-      color: var(--ivory);
-      margin-bottom: 0.2rem;
-    }
-
-    .govlay p {
-      font-size: 0.68rem;
-      color: var(--gold-light);
-      letter-spacing: 0.06em;
-    }
-
-    .glabel {
-      padding: 0.75rem 0.9rem;
-      background: var(--ivory);
-      border-top: 1px solid var(--ivory-dark);
-    }
-
-    .glabel h3 {
-      font-family: var(--serif);
-      font-size: 0.95rem;
-      font-weight: 400;
-      margin-bottom: 0.12rem;
-    }
-
-    .glabel p {
-      font-size: 0.68rem;
-      color: var(--muted);
-    }
-
-    /* ═══════════════════════════════════════════════════
-       LIGHTBOX
-    ═══════════════════════════════════════════════════ */
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 600;
-      background: rgba(28, 26, 23, 0.96);
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-
-    .lightbox.open {
-      display: flex;
-    }
-
-    .lb-inner {
-      max-width: 860px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 260px;
-      gap: 2.5rem;
-      align-items: center;
-    }
-
-    .lb-img {
-      background: var(--charcoal-mid);
-      aspect-ratio: 3/4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .lb-info h2 {
-      font-family: var(--serif);
-      font-size: 1.8rem;
-      font-weight: 300;
-      color: var(--ivory);
-      margin-bottom: 0.4rem;
-    }
-
-    .lb-meta {
-      font-size: 0.75rem;
-      color: var(--gold);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-    }
-
-    .lb-desc {
-      font-size: 0.88rem;
-      color: rgba(245, 240, 232, 0.55);
-      line-height: 1.8;
-      margin-bottom: 1.75rem;
-    }
-
-    .lb-close {
-      position: absolute;
-      top: 1.25rem;
-      right: 1.75rem;
-      font-size: 1.4rem;
-      color: var(--ivory);
-      opacity: 0.45;
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-
-    .lb-close:hover {
-      opacity: 1;
-    }
-
-    /* ═══════════════════════════════════════════════════
-       ABOUT PAGE
-    ═══════════════════════════════════════════════════ */
-    .about-layout {
-      display: grid;
-      grid-template-columns: 340px 1fr;
-      min-height: calc(100vh - var(--banner-h) - var(--nav-h));
-    }
-
-    .about-sidebar {
-      background: var(--charcoal);
-      padding: 3.5rem 2.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.75rem;
-    }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { background: var(--ivory); color: var(--charcoal); font-family: var(--sans); font-weight: 300; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: var(--banner-h); left: 0; right: 0; z-index: 400; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; background: var(--ivory); border-bottom: 1px solid var(--ivory-dark); transition: box-shadow 0.3s; }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(28,26,23,0.08); }
+    .nav-logo { font-family: var(--serif); font-size: 1.3rem; font-weight: 300; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; white-space: nowrap; }
+    .nav-logo span { color: var(--terracotta); }
+    .nav-logo .logo-full { display: inline; }
+    .nav-logo .logo-initials { display: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.72rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); cursor: pointer; position: relative; padding-bottom: 2px; transition: color 0.25s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--terracotta); transition: width 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--charcoal); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--charcoal); transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-nav { display: none; position: fixed; top: calc(var(--banner-h) + var(--nav-h)); left: 0; right: 0; z-index: 390; background: var(--ivory); border-bottom: 1px solid var(--ivory-dark); padding: 1.5rem 2rem; flex-direction: column; gap: 1.25rem; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); cursor: pointer; transition: color 0.2s; }
+    .mobile-nav a:hover, .mobile-nav a.active { color: var(--charcoal); }
+
+    /* ── PAGE SYSTEM ── */
+    .page-offset { padding-top: calc(var(--banner-h) + var(--nav-h)); }
+    .page { display: none; min-height: 100vh; animation: fadein 0.45s ease; }
+    .page.active { display: block; }
+    @keyframes fadein { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    /* ── HOME HERO ── */
+    #home { padding-top: 0; }
+    .hero { height: 100vh; min-height: 500px; display: grid; grid-template-columns: 1fr 1fr; padding-top: calc(var(--banner-h) + var(--nav-h)); }
+    .hero-left { background: var(--charcoal-mid); position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 2.5rem; }
+    .hero-art-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #2E2B26 0%, #1C1A17 40%, #3D2B1F 100%); display: flex; align-items: center; justify-content: center; }
+    .hero-art-bg::before { content: ''; position: absolute; width: 65%; height: 65%; border: 1px solid rgba(201,168,76,0.18); border-radius: 1px; }
+    .ph-label { font-family: var(--serif); font-size: 0.78rem; color: rgba(201,168,76,0.3); letter-spacing: 0.18em; text-transform: uppercase; text-align: center; line-height: 2.2; }
+    .hero-caption { position: relative; z-index: 2; color: var(--gold-light); }
+    .hero-caption p { font-family: var(--serif); font-size: 0.78rem; letter-spacing: 0.14em; opacity: 0.55; font-style: italic; margin-bottom: 0.2rem; }
+    .hero-caption h2 { font-family: var(--serif); font-size: 1.05rem; font-weight: 300; letter-spacing: 0.06em; }
+    .hero-right { background: var(--ivory); display: flex; flex-direction: column; justify-content: center; padding: 3rem 4rem; position: relative; }
+    .hero-right::before { content: ''; position: absolute; top: 3rem; left: -1px; height: calc(100% - 6rem); width: 1px; background: var(--gold); opacity: 0.35; }
+    .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.25rem; }
+    .hero-title { font-family: var(--serif); font-size: clamp(2.4rem,5vw,5rem); font-weight: 300; line-height: 1.05; margin-bottom: 1.5rem; }
+    .hero-title em { font-style: italic; color: var(--terracotta); }
+    .hero-tagline { font-size: 0.88rem; color: var(--muted); line-height: 1.85; max-width: 300px; margin-bottom: 2.5rem; }
+    .cta-btn { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--charcoal); cursor: pointer; transition: gap 0.3s, color 0.3s; background: none; border: none; font-family: var(--sans); padding: 0; }
+    .cta-btn::after { content: '→'; font-size: 0.95rem; transition: transform 0.3s; }
+    .cta-btn:hover { gap: 1rem; color: var(--terracotta); }
+    .cta-btn:hover::after { transform: translateX(4px); }
+    .hero-socials { position: absolute; bottom: 2.5rem; right: 3rem; display: flex; flex-direction: column; align-items: center; gap: 0.9rem; }
+    .hero-socials::before { content: ''; width: 1px; height: 2.5rem; background: var(--muted); opacity: 0.25; }
+    .s-icon { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); writing-mode: vertical-rl; transition: color 0.25s; }
+    .s-icon:hover { color: var(--terracotta); }
+
+    /* ── FEATURED STRIP ── */
+    .featured-strip { padding: 4rem 3rem 5rem; }
+    .strip-header { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 1px solid var(--ivory-dark); padding-bottom: 1rem; margin-bottom: 2.5rem; }
+    .strip-title { font-family: var(--serif); font-size: 2rem; font-weight: 300; }
+    .strip-link { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); cursor: pointer; }
+    .strip-link:hover { opacity: 0.7; }
+    .featured-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.85rem; }
+    .feat-card { background: var(--charcoal); cursor: pointer; position: relative; overflow: hidden; }
+    .feat-card:first-child { grid-row: 1 / 3; }
+    .feat-thumb { width: 100%; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: transform 0.5s ease; background: var(--charcoal); }
+    .feat-card:first-child .feat-thumb { aspect-ratio: 3/4; }
+    .feat-card:hover .feat-thumb { transform: scale(1.04); }
+    .art-ph { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; color: rgba(201,168,76,0.25); font-family: var(--serif); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; gap: 0.6rem; }
+    .art-ph svg { opacity: 0.18; }
+    .feat-label { padding: 0.75rem 1rem; background: var(--charcoal-mid); }
+    .feat-label h3 { font-family: var(--serif); font-size: 0.95rem; font-weight: 400; color: var(--gold-light); margin-bottom: 0.15rem; }
+    .feat-label p { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.06em; }
+
+    /* ── GALLERY ── */
+    .gallery-hdr { padding: 1.5rem 3rem; border-bottom: 1px solid var(--ivory-dark); }
+    .pg-eyebrow { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.5rem; }
+    .pg-title { font-family: var(--serif); font-size: clamp(2.2rem,5vw,3.8rem); font-weight: 300; line-height: 1.1; }
+    .filter-bar { padding: 1.25rem 3rem; display: flex; gap: 0.4rem; flex-wrap: wrap; border-bottom: 1px solid var(--ivory-dark); }
+    .fbtn { font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; border: 1px solid var(--ivory-dark); background: transparent; color: var(--muted); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s; }
+    .fbtn:hover, .fbtn.active { background: var(--charcoal); border-color: var(--charcoal); color: var(--ivory); }
+    .gallery-grid { padding: 2rem 3rem 5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 1.1rem; }
+    .gcard { cursor: pointer; position: relative; overflow: hidden; background: var(--charcoal); }
+    .gthumb { width: 100%; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: transform 0.5s ease; }
+    .gcard:hover .gthumb { transform: scale(1.04); }
+    .govlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,26,23,0.85) 0%, transparent 55%); opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; padding: 1.25rem; }
+    .gcard:hover .govlay { opacity: 1; }
+    .govlay h3 { font-family: var(--serif); font-size: 1.05rem; color: var(--ivory); margin-bottom: 0.2rem; }
+    .govlay p { font-size: 0.68rem; color: var(--gold-light); letter-spacing: 0.06em; }
+    .glabel { padding: 0.75rem 0.9rem; background: var(--ivory); border-top: 1px solid var(--ivory-dark); }
+    .glabel h3 { font-family: var(--serif); font-size: 0.95rem; font-weight: 400; margin-bottom: 0.12rem; }
+    .glabel p { font-size: 0.68rem; color: var(--muted); }
+
+    /* ── LIGHTBOX ── */
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 600; background: rgba(28,26,23,0.96); align-items: center; justify-content: center; padding: 2rem; }
+    .lightbox.open { display: flex; }
+    .lb-inner { max-width: 860px; width: 100%; display: grid; grid-template-columns: 1fr 260px; gap: 2.5rem; align-items: center; }
+    .lb-img { background: var(--charcoal-mid); aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; }
+    .lb-info h2 { font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: var(--ivory); margin-bottom: 0.4rem; }
+    .lb-meta { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.25rem; }
+    .lb-desc { font-size: 0.88rem; color: rgba(245,240,232,0.55); line-height: 1.8; margin-bottom: 1.75rem; }
+    .lb-close { position: absolute; top: 1.25rem; right: 1.75rem; font-size: 1.4rem; color: var(--ivory); opacity: 0.45; background: none; border: none; cursor: pointer; transition: opacity 0.2s; }
+    .lb-close:hover { opacity: 1; }
+
+    /* ── ABOUT ── */
+    .about-layout { display: grid; grid-template-columns: 340px 1fr; min-height: calc(100vh - var(--banner-h) - var(--nav-h)); }
+    .about-sidebar { background: var(--charcoal); padding: 3.5rem 2.5rem; display: flex; flex-direction: column; gap: 1.75rem; }
     .about-portrait {
-      width: 100%;
-      aspect-ratio: 3/4;
+      width: 100%; aspect-ratio: 3/4;
       background: var(--charcoal-mid);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(201, 168, 76, 0.13);
-    }
-
-    .about-sidebar h1 {
-      font-family: var(--serif);
-      font-size: 1.65rem;
-      font-weight: 300;
-      color: var(--ivory);
-      letter-spacing: 0.04em;
-    }
-
-    .about-sidebar .subtitle {
-      font-size: 0.7rem;
-      color: var(--gold);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    .about-socials {
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      margin-top: auto;
-    }
-
-    .asl {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      cursor: pointer;
-      transition: color 0.25s;
-    }
-
-    .asl:hover {
-      color: var(--gold-light);
-    }
-
-    .sdot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--terracotta);
-      flex-shrink: 0;
-    }
-
-    .about-body {
-      padding: 4rem;
-      max-width: 680px;
-    }
-
-    .about-body .pg-eyebrow {
-      margin-bottom: 0.4rem;
-    }
-
-    .about-body h2 {
-      font-family: var(--serif);
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      font-weight: 300;
-      line-height: 1.15;
-      margin-bottom: 2rem;
-    }
-
-    .about-body p {
-      font-size: 0.95rem;
-      color: var(--charcoal);
-      line-height: 1.9;
-      margin-bottom: 1.25rem;
-      opacity: 0.82;
-    }
-
-    .about-divider {
-      width: 2.5rem;
-      height: 1px;
-      background: var(--gold);
-      margin: 2rem 0;
-    }
-
-    .client-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.4rem 2rem;
-    }
-
-    .client-list li {
-      list-style: none;
-      font-size: 0.8rem;
-      color: var(--muted);
-      padding: 0.35rem 0;
-      border-bottom: 1px solid var(--ivory-dark);
-    }
-
-    /* ═══════════════════════════════════════════════════
-       PRICE CALCULATOR PAGE
-    ═══════════════════════════════════════════════════ */
-    .calc-layout {
-      padding: 4rem 3rem 6rem;
-      max-width: 860px;
-      margin: 0 auto;
-    }
-
-    .calc-layout .pg-eyebrow {
-      margin-bottom: 0.5rem;
-    }
-
-    .calc-layout .pg-title {
-      margin-bottom: 0.5rem;
-    }
-
-    .calc-subtitle {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 3rem;
-      max-width: 560px;
-    }
-
-    .calc-card {
-      background: white;
-      border: 1px solid var(--ivory-dark);
-      padding: 2.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .calc-card h3 {
-      font-family: var(--serif);
-      font-size: 1.5rem;
-      font-weight: 300;
-      margin-bottom: 1.75rem;
-    }
-
-    .input-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .input-group label {
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .input-group input,
-    .input-group select {
-      padding: 0.75rem 1rem;
-      background: var(--ivory);
-      border: 1px solid var(--ivory-dark);
-      border-bottom: 1.5px solid #C4B99A;
-      font-family: var(--sans);
-      font-size: 0.9rem;
-      color: var(--charcoal);
-      outline: none;
-      transition: border-color 0.2s;
-      border-radius: 0;
-      appearance: none;
-    }
-
-    .input-group input:focus,
-    .input-group select:focus {
-      border-bottom-color: var(--terracotta);
-    }
-
-    .unit-toggle {
-      display: flex;
-      gap: 0;
-      margin-bottom: 1.5rem;
-    }
-
-    .utbtn {
-      flex: 1;
-      padding: 0.55rem;
-      font-family: var(--sans);
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      cursor: pointer;
-      border: 1px solid var(--ivory-dark);
-      background: transparent;
-      color: var(--muted);
-      transition: all 0.2s;
-    }
-
-    .utbtn:first-child {
-      border-right: none;
-    }
-
-    .utbtn.active {
-      background: var(--charcoal);
-      border-color: var(--charcoal);
-      color: var(--ivory);
-    }
-
-    .result-box {
-      background: var(--charcoal);
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: gap;
-      margin-top: 1.5rem;
-    }
-
-    .result-box .result-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      opacity: 0.7;
-      margin-bottom: 0.4rem;
-    }
-
-    .result-price {
-      font-family: var(--serif);
-      font-size: 2.8rem;
-      font-weight: 300;
-      color: var(--ivory);
-      line-height: 1;
-    }
-
-    .result-breakdown {
-      font-size: 0.75rem;
-      color: rgba(245, 240, 232, 0.45);
-      margin-top: 0.4rem;
-    }
-
-    .result-tag {
-      font-size: 0.65rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      border: 1px solid rgba(201, 168, 76, 0.3);
-      padding: 0.35rem 0.85rem;
-      align-self: flex-start;
-    }
-
-    .rate-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-
-    .rate-table th {
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-align: left;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--ivory-dark);
-    }
-
-    .rate-table td {
-      font-size: 0.88rem;
-      padding: 0.65rem 0.75rem;
-      border-bottom: 1px solid var(--ivory-dark);
-    }
-
-    .rate-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .rate-table .med {
-      font-family: var(--serif);
-      font-size: 1rem;
-    }
-
-    .rate-pill {
-      font-size: 0.7rem;
-      background: var(--ivory-dark);
-      padding: 0.2rem 0.6rem;
-      border-radius: 2px;
-      color: var(--muted);
-    }
-
-    /* ═══════════════════════════════════════════════════
-       CONTACT PAGE
-    ═══════════════════════════════════════════════════ */
-    .contact-layout {
-      display: grid;
-      grid-template-columns: 1fr 440px;
-      min-height: calc(100vh - var(--banner-h) - var(--nav-h));
-    }
-
-    .contact-left {
-      background: var(--charcoal);
-      padding: 4.5rem 3.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .contact-left h2 {
-      font-family: var(--serif);
-      font-size: clamp(2.2rem, 4vw, 3.8rem);
-      font-weight: 300;
-      color: var(--ivory);
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-    }
-
-    .contact-left h2 em {
-      color: var(--terracotta);
-      font-style: italic;
-    }
-
-    .contact-left>div>p {
-      font-size: 0.88rem;
-      color: rgba(245, 240, 232, 0.45);
-      line-height: 1.8;
-      max-width: 360px;
-      margin-bottom: 2.5rem;
-    }
-
-    .contact-details {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .cd-row {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-
-    .cd-row label {
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      opacity: 0.55;
-    }
-
-    .cd-row a,
-    .cd-row span {
-      font-size: 0.95rem;
-      color: var(--ivory);
-      font-family: var(--serif);
-    }
-
-    .socials-row {
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-    }
-
-    .s-pill {
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      border: 1px solid rgba(122, 116, 104, 0.28);
-      padding: 0.45rem 0.9rem;
-      cursor: pointer;
-      transition: all 0.25s;
-    }
-
-    .s-pill:hover {
-      border-color: var(--gold);
-      color: var(--gold-light);
-    }
-
-    .contact-right {
-      background: var(--ivory);
-      padding: 4.5rem 3rem;
-    }
-
-    .contact-right h3 {
-      font-family: var(--serif);
-      font-size: 1.4rem;
-      font-weight: 300;
-      margin-bottom: 2rem;
-    }
-
-    .form-group {
-      margin-bottom: 1.25rem;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.4rem;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      padding: 0.75rem 0.9rem;
-      background: var(--ivory-dark);
-      border: 1px solid var(--ivory-dark);
-      border-bottom: 1.5px solid #C4B99A;
-      font-family: var(--sans);
-      font-size: 0.88rem;
-      color: var(--charcoal);
-      outline: none;
-      transition: border-color 0.25s;
-      border-radius: 0;
-      appearance: none;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      border-bottom-color: var(--terracotta);
-    }
-
-    .form-group textarea {
-      height: 110px;
-      resize: vertical;
-    }
-
-    .form-submit {
-      width: 100%;
-      padding: 0.9rem;
-      background: var(--charcoal);
-      color: var(--ivory);
-      border: none;
-      font-family: var(--sans);
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.25s;
-      margin-top: 0.4rem;
-    }
-
-    .form-submit:hover {
-      background: var(--terracotta);
-    }
-
-    .ag-form-note {
-      margin-top: 1.25rem;
-      padding: 0.9rem 1rem;
-      border: 1px solid var(--ivory-dark);
-      border-left: 3px solid var(--gold);
-      font-size: 0.75rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    .ag-form-note strong {
-      color: var(--charcoal);
-      display: block;
-      margin-bottom: 0.2rem;
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    /* ═══════════════════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════════════════ */
-    footer {
-      background: var(--charcoal);
-      padding: 1.75rem 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .footer-copy {
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-    }
-
-    .footer-ip {
-      font-size: 0.64rem;
-      color: rgba(122, 116, 104, 0.5);
-      letter-spacing: 0.04em;
-      max-width: 380px;
-      text-align: right;
-      line-height: 1.6;
-    }
-
-    /* Consistent footer social links — appear on every page */
-    .footer-socials {
-      display: flex;
-      gap: 1.25rem;
-      align-items: center;
-      width: 100%;
-      border-top: 1px solid rgba(122, 116, 104, 0.15);
-      padding-top: 1rem;
-      margin-top: 0.25rem;
-    }
-
-    .footer-socials a {
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      transition: color 0.2s;
-    }
-
-    .footer-socials a:hover {
-      color: var(--gold-light);
-    }
-
-    .footer-socials .sig {
-      font-family: var(--serif);
-      font-size: 1rem;
-      color: rgba(201, 168, 76, 0.35);
-      letter-spacing: 0.06em;
-      margin-left: auto;
-    }
-
-    /* Shipping warning in result box */
-    .shipping-warn {
-      margin-top: 1rem;
-      padding: 0.75rem 1rem;
-      background: rgba(201, 168, 76, 0.12);
-      border: 1px solid rgba(201, 168, 76, 0.35);
-      font-size: 0.75rem;
-      color: var(--gold-light);
-      line-height: 1.6;
-      letter-spacing: 0.02em;
-    }
-
-    .shipping-warn strong {
-      display: block;
-      font-size: 0.68rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin-bottom: 0.2rem;
-      color: var(--gold);
-    }
-
-    /* ═══════════════════════════════════════════════════
-       RESPONSIVE — TABLET & MOBILE
-    ═══════════════════════════════════════════════════ */
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(201,168,76,0.13);
+      overflow: hidden;
+    }
+    /* When a real photo is added, it fills the portrait area */
+    .about-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .about-sidebar h1 { font-family: var(--serif); font-size: 1.65rem; font-weight: 300; color: var(--ivory); letter-spacing: 0.04em; }
+    .about-sidebar .subtitle { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; }
+    .about-socials { display: flex; flex-direction: column; gap: 0.55rem; margin-top: auto; }
+    .asl { display: flex; align-items: center; gap: 0.65rem; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); cursor: pointer; transition: color 0.25s; }
+    .asl:hover { color: var(--gold-light); }
+    .sdot { width: 5px; height: 5px; border-radius: 50%; background: var(--terracotta); flex-shrink: 0; }
+    .about-body { padding: 4rem; max-width: 680px; }
+    .about-body .pg-eyebrow { margin-bottom: 0.4rem; }
+    .about-body h2 { font-family: var(--serif); font-size: clamp(2rem,3.5vw,2.8rem); font-weight: 300; line-height: 1.15; margin-bottom: 2rem; }
+    .about-body p { font-size: 0.95rem; color: var(--charcoal); line-height: 1.9; margin-bottom: 1.25rem; opacity: 0.82; }
+    .about-divider { width: 2.5rem; height: 1px; background: var(--gold); margin: 2rem 0; }
+    .client-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 2rem; }
+    .client-list li { list-style: none; font-size: 0.8rem; color: var(--muted); padding: 0.35rem 0; border-bottom: 1px solid var(--ivory-dark); }
+
+    /* ── CALCULATOR ── */
+    .calc-layout { padding: 4rem 3rem 6rem; max-width: 860px; margin: 0 auto; }
+    .calc-layout .pg-eyebrow { margin-bottom: 0.5rem; }
+    .calc-layout .pg-title { margin-bottom: 0.5rem; }
+    .calc-subtitle { font-size: 0.9rem; color: var(--muted); line-height: 1.75; margin-bottom: 3rem; max-width: 560px; }
+    .calc-card { background: white; border: 1px solid var(--ivory-dark); padding: 2.5rem; margin-bottom: 2rem; }
+    .calc-card h3 { font-family: var(--serif); font-size: 1.5rem; font-weight: 300; margin-bottom: 1.75rem; }
+    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
+    .input-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .input-group label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+    .input-group input, .input-group select { padding: 0.75rem 1rem; background: var(--ivory); border: 1px solid var(--ivory-dark); border-bottom: 1.5px solid #C4B99A; font-family: var(--sans); font-size: 0.9rem; color: var(--charcoal); outline: none; transition: border-color 0.2s; border-radius: 0; appearance: none; }
+    .input-group input:focus, .input-group select:focus { border-bottom-color: var(--terracotta); }
+    .unit-toggle { display: flex; margin-bottom: 1.5rem; }
+    .utbtn { flex: 1; padding: 0.55rem; font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; border: 1px solid var(--ivory-dark); background: transparent; color: var(--muted); transition: all 0.2s; }
+    .utbtn:first-child { border-right: none; }
+    .utbtn.active { background: var(--charcoal); border-color: var(--charcoal); color: var(--ivory); }
+    .result-box { background: var(--charcoal); padding: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+    .result-box .result-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); opacity: 0.7; margin-bottom: 0.4rem; }
+    .result-price { font-family: var(--serif); font-size: 2.8rem; font-weight: 300; color: var(--ivory); line-height: 1; }
+    .result-breakdown { font-size: 0.75rem; color: rgba(245,240,232,0.45); margin-top: 0.4rem; }
+    .result-tag { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-light); border: 1px solid rgba(201,168,76,0.3); padding: 0.35rem 0.85rem; align-self: flex-start; }
+    .rate-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .rate-table th { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--ivory-dark); }
+    .rate-table td { font-size: 0.88rem; padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--ivory-dark); }
+    .rate-table tr:last-child td { border-bottom: none; }
+    .rate-table .med { font-family: var(--serif); font-size: 1rem; }
+    .rate-pill { font-size: 0.7rem; background: var(--ivory-dark); padding: 0.2rem 0.6rem; border-radius: 2px; color: var(--muted); }
+    .shipping-warn { margin-top: 1rem; padding: 0.75rem 1rem; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.35); font-size: 0.75rem; color: var(--gold-light); line-height: 1.6; }
+    .shipping-warn strong { display: block; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.2rem; color: var(--gold); }
+
+    /* ── SIZE VISUALISER ── */
+    .vis-wrap { margin-top: 1.5rem; }
+    .vis-wrap h4 { font-family: var(--serif); font-size: 1.1rem; font-weight: 300; margin-bottom: 0.5rem; }
+    .vis-subtitle { font-size: 0.72rem; color: var(--muted); margin-bottom: 1rem; letter-spacing: 0.04em; }
+    .vis-canvas-wrap { background: var(--ivory-dark); border: 1px solid var(--ivory-dark); display: flex; align-items: center; justify-content: center; padding: 2rem; min-height: 280px; overflow: hidden; }
+    #vis-canvas { display: block; max-width: 100%; }
+    .vis-legend { display: flex; gap: 1.5rem; margin-top: 0.85rem; flex-wrap: wrap; }
+    .vis-legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.06em; }
+    .vis-swatch { width: 14px; height: 14px; flex-shrink: 0; }
+    .min-warn { margin-top: 0.6rem; font-size: 0.72rem; color: var(--terracotta); letter-spacing: 0.04em; display: none; }
+    .min-warn.show { display: block; }
+
+    /* ── CONTACT ── */
+    .contact-layout { display: grid; grid-template-columns: 1fr 440px; min-height: calc(100vh - var(--banner-h) - var(--nav-h)); }
+    .contact-left { background: var(--charcoal); padding: 4.5rem 3.5rem; display: flex; flex-direction: column; justify-content: space-between; }
+    .contact-left h2 { font-family: var(--serif); font-size: clamp(2.2rem,4vw,3.8rem); font-weight: 300; color: var(--ivory); line-height: 1.1; margin-bottom: 1.5rem; }
+    .contact-left h2 em { color: var(--terracotta); font-style: italic; }
+    .contact-left > div > p { font-size: 0.88rem; color: rgba(245,240,232,0.45); line-height: 1.8; max-width: 360px; margin-bottom: 2.5rem; }
+    .contact-details { display: flex; flex-direction: column; gap: 1.25rem; }
+    .cd-row { display: flex; flex-direction: column; gap: 0.15rem; }
+    .cd-row label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); opacity: 0.55; }
+    .cd-row a, .cd-row span { font-size: 0.95rem; color: var(--ivory); font-family: var(--serif); }
+    .socials-row { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .s-pill { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); border: 1px solid rgba(122,116,104,0.28); padding: 0.45rem 0.9rem; cursor: pointer; transition: all 0.25s; }
+    .s-pill:hover { border-color: var(--gold); color: var(--gold-light); }
+    .contact-right { background: var(--ivory); padding: 4.5rem 3rem; }
+    .contact-right h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 300; margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.75rem 0.9rem; background: var(--ivory-dark); border: 1px solid var(--ivory-dark); border-bottom: 1.5px solid #C4B99A; font-family: var(--sans); font-size: 0.88rem; color: var(--charcoal); outline: none; transition: border-color 0.25s; border-radius: 0; appearance: none; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-bottom-color: var(--terracotta); }
+    .form-group textarea { height: 110px; resize: vertical; }
+    .form-submit { width: 100%; padding: 0.9rem; background: var(--charcoal); color: var(--ivory); border: none; font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: background 0.25s; margin-top: 0.4rem; }
+    .form-submit:hover { background: var(--terracotta); }
+    .ag-form-note { margin-top: 1.25rem; padding: 0.9rem 1rem; border: 1px solid var(--ivory-dark); border-left: 3px solid var(--gold); font-size: 0.75rem; color: var(--muted); line-height: 1.65; }
+    .ag-form-note strong { color: var(--charcoal); display: block; margin-bottom: 0.2rem; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--charcoal); padding: 1.75rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
+    .footer-copy { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.06em; }
+    .footer-ip { font-size: 0.64rem; color: rgba(122,116,104,0.5); letter-spacing: 0.04em; max-width: 380px; text-align: right; line-height: 1.6; }
+    .footer-socials { display: flex; gap: 1.25rem; align-items: center; width: 100%; border-top: 1px solid rgba(122,116,104,0.15); padding-top: 1rem; margin-top: 0.25rem; }
+    .footer-socials a { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); transition: color 0.2s; }
+    .footer-socials a:hover { color: var(--gold-light); }
+    .footer-socials .sig { font-family: var(--serif); font-size: 1rem; color: rgba(201,168,76,0.35); letter-spacing: 0.06em; margin-left: auto; }
+
+    /* ══════════════════════════════════════════════════
+       RESPONSIVE — all inside the media query
+    ══════════════════════════════════════════════════ */
     @media (max-width: 960px) {
-      nav {
-        padding: 0 1.75rem;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-
-      /* Switch logo to BVDB initials on mobile */
-      .nav-logo .logo-full {
-        display: none;
-      }
-
-      .nav-logo .logo-initials {
-        display: inline;
-      }
-
-      .hero {
-        grid-template-columns: 1fr;
-        height: auto;
-        min-height: 100svh;
-      }
-
-      .hero-left {
-        display: none;
-      }
-
-      .hero-right {
-        padding: 3rem 2rem 2.5rem;
-      }
-
-      .hero-right::before {
-        display: none;
-      }
-
-      .hero-socials {
-        display: none;
-      }
-
-      .featured-strip {
-        padding: 3rem 1.75rem 4rem;
-      }
-
-      .featured-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .feat-card:first-child {
-        grid-column: 1 / 3;
-        grid-row: auto;
-      }
-
-      .feat-card:first-child .feat-thumb {
-        aspect-ratio: 4/3;
-      }
-
-      .gallery-hdr {
-        padding: 2.5rem 1.75rem 1.25rem;
-      }
-
-    .filter-bar {
-      padding: 1rem 1.75rem;
+      nav { padding: 0 1.75rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-logo .logo-full { display: none; }
+      .nav-logo .logo-initials { display: inline; }
+      .hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
+      .hero-left { display: none; }
+      .hero-right { padding: 3rem 2rem 2.5rem; }
+      .hero-right::before { display: none; }
+      .hero-socials { display: none; }
+      .featured-strip { padding: 3rem 1.75rem 4rem; }
+      .featured-grid { grid-template-columns: 1fr 1fr; }
+      .feat-card:first-child { grid-column: 1 / 3; grid-row: auto; }
+      .feat-card:first-child .feat-thumb { aspect-ratio: 4/3; }
+      .gallery-hdr { padding: 2rem 1.75rem 1.25rem; }
+      .filter-bar { padding: 1rem 1.75rem; }
+      .gallery-grid { padding: 1.5rem 1.75rem 4rem; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); }
+      .about-layout { grid-template-columns: 1fr; }
+      .about-sidebar { display: none; }
+      .about-body { padding: 2.5rem 1.75rem; max-width: 100%; }
+      .calc-layout { padding: 2.5rem 1.75rem 5rem; }
+      .input-row { grid-template-columns: 1fr; }
+      .contact-layout { grid-template-columns: 1fr; }
+      .contact-left { padding: 3rem 1.75rem; }
+      .contact-right { padding: 3rem 1.75rem; }
+      .lb-inner { grid-template-columns: 1fr; }
+      .lb-img { aspect-ratio: 4/3; }
+      footer { padding: 1.5rem 1.75rem; }
+      .footer-ip { text-align: left; }
     }
-
-    .gallery-grid {
-      padding: 1.5rem 1.75rem 4rem;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-
-    .about-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .about-sidebar {
-      display: none;
-    }
-
-    .about-body {
-      padding: 2.5rem 1.75rem;
-      max-width: 100%;
-    }
-
-    .calc-layout {
-      padding: 2.5rem 1.75rem 5rem;
-    }
-
-    .input-row {
-      grid-template-columns: 1fr;
-    }
-
-    .contact-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .contact-left {
-      padding: 3rem 1.75rem;
-    }
-
-    .contact-right {
-      padding: 3rem 1.75rem;
-    }
-
-    .lb-inner {
-      grid-template-columns: 1fr;
-    }
-
-    .lb-img {
-      aspect-ratio: 4/3;
-    }
-
-    footer {
-      padding: 1.5rem 1.75rem;
-    }
-
-    .footer-ip {
-      text-align: left;
-    }
-    
 
     @media (max-width: 560px) {
-      .featured-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .feat-card:first-child {
-        grid-column: auto;
-      }
-
-      .result-box {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
-
-      .gallery-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 0.75rem;
-      }
-
-      .strip-header {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-    }
-
-    /* Size visualiser */
-    .vis-wrap {
-      margin-top: 1.5rem;
-    }
-
-    .vis-wrap h4 {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      font-weight: 300;
-      margin-bottom: 0.5rem;
-    }
-
-    .vis-subtitle {
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-bottom: 1rem;
-      letter-spacing: 0.04em;
-    }
-
-    .vis-canvas-wrap {
-      background: var(--ivory-dark);
-      border: 1px solid var(--ivory-dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      min-height: 280px;
-      overflow: hidden;
-    }
-
-    #vis-canvas {
-      display: block;
-      max-width: 100%;
-    }
-
-    .vis-legend {
-      display: flex;
-      gap: 1.5rem;
-      margin-top: 0.85rem;
-      flex-wrap: wrap;
-    }
-
-    .vis-legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.7rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-    }
-
-    .vis-swatch {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-    }
-
-    .min-warn {
-      margin-top: 0.6rem;
-      font-size: 0.72rem;
-      color: var(--terracotta);
-      letter-spacing: 0.04em;
-      display: none;
-    }
-
-    .min-warn.show {
-      display: block;
+      .featured-grid { grid-template-columns: 1fr; }
+      .feat-card:first-child { grid-column: auto; }
+      .result-box { flex-direction: column; align-items: flex-start; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .strip-header { flex-direction: column; gap: 0.5rem; }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- NAV -->
   <nav id="main-nav">
     <div class="nav-logo" onclick="showPage('home')">
       <span class="logo-full">Bre <span>VanDenBerghe</span></span>
@@ -1549,7 +294,6 @@
     </button>
   </nav>
 
-  <!-- MOBILE NAV DRAWER -->
   <div class="mobile-nav" id="mobile-nav">
     <a onclick="navTo('gallery')">Gallery</a>
     <a onclick="navTo('calculator')">Commissions</a>
@@ -1557,34 +301,29 @@
     <a onclick="navTo('contact')">Contact</a>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-     HOME
-══════════════════════════════════════════════════════ -->
+  <!-- ══ HOME ══ -->
   <div id="home" class="page active">
     <section class="hero">
       <div class="hero-left">
-  <div class="hero-art-bg" id="hero-art-bg">
-    <div class="ph-label">
-      <svg width="44" height="44" viewBox="0 0 48 48" fill="none">
-        <rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1" />
-        <circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1" />
-        <path d="M4 32L16 20L26 30L34 22L44 32" stroke="#C9A84C" stroke-width="1" />
-      </svg>
-      Featured artwork<br>[Image to be provided]
-    </div>
-  </div>
-  <div class="hero-caption">
-    <p>Featured work</p>
-    <h2 id="hero-title">Placeholder Title</h2>
-  </div>
-</div>
+        <div class="hero-art-bg" id="hero-art-bg">
+          <div class="ph-label">
+            <svg width="44" height="44" viewBox="0 0 48 48" fill="none">
+              <rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1"/>
+              <circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1"/>
+              <path d="M4 32L16 20L26 30L34 22L44 32" stroke="#C9A84C" stroke-width="1"/>
+            </svg>
+            Featured artwork<br>[Image to be provided]
+          </div>
+        </div>
+        <div class="hero-caption">
+          <p>Featured work</p>
+          <h2 id="hero-title">Placeholder Title</h2>
+        </div>
       </div>
-
       <div class="hero-right">
         <p class="hero-eyebrow">Fine Art · Commissions Open</p>
         <h1 class="hero-title">Original<br><em>works of art</em><br>for collectors</h1>
-        <p class="hero-tagline">Figurative and narrative painting rooted in classical tradition. Available for
-          commissions, exhibitions, and licensing.</p>
+        <p class="hero-tagline">Figurative and narrative painting rooted in classical tradition. Available for commissions, exhibitions, and licensing.</p>
         <button class="cta-btn" onclick="showPage('gallery')">View the gallery</button>
         <div class="hero-socials">
           <a class="s-icon" href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram</a>
@@ -1602,8 +341,7 @@
 
     <footer>
       <div class="footer-copy">© 2026 Bre VanDenBerghe. All rights reserved.</div>
-      <div class="footer-ip">All images are the exclusive property of the artist. No reproduction or use without written
-        consent.</div>
+      <div class="footer-ip">All images are the exclusive property of the artist. No reproduction or use without written consent.</div>
       <div class="footer-socials">
         <a href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram — @brevandenberghe</a>
         <span class="sig">BVDB</span>
@@ -1611,98 +349,60 @@
     </footer>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-     GALLERY
-══════════════════════════════════════════════════════ -->
+  <!-- ══ GALLERY ══ -->
   <div id="gallery" class="page page-offset">
     <div class="gallery-hdr">
       <p class="pg-eyebrow">Works</p>
       <h1 class="pg-title">Gallery</h1>
     </div>
-
-  <div class="filter-bar">
-    <button class="fbtn active" onclick="filterGallery('all',this)">All Works</button>
-    <button class="fbtn" onclick="filterGallery('watercolour',this)">Watercolour</button>
-    <button class="fbtn" onclick="filterGallery('oil',this)">Oil</button>
-    <button class="fbtn" onclick="filterGallery('mixed',this)">Mixed Media</button>
-    <button class="fbtn" onclick="filterGallery('commission',this)">Commissions</button>
-  </div>
-  <div class="gallery-grid" id="gallery-grid"></div>
-
-  <footer>
-    <div class="footer-copy">© 2026 Bre VanDenBerghe. All rights reserved.</div>
-    <div class="footer-ip">All images © the artist. Reproduction without written permission is prohibited.</div>
-    <div class="footer-socials">
-      <a href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram — @brevandenberghe</a>
-      <span class="sig">BVDB</span>
+    <div class="filter-bar">
+      <button class="fbtn active" onclick="filterGallery('all',this)">All Works</button>
+      <button class="fbtn" onclick="filterGallery('watercolour',this)">Watercolour</button>
+      <button class="fbtn" onclick="filterGallery('oil',this)">Oil</button>
+      <button class="fbtn" onclick="filterGallery('mixed',this)">Mixed Media</button>
+      <button class="fbtn" onclick="filterGallery('commission',this)">Commissions</button>
     </div>
-  </footer>
+    <div class="gallery-grid" id="gallery-grid"></div>
+    <footer>
+      <div class="footer-copy">© 2026 Bre VanDenBerghe. All rights reserved.</div>
+      <div class="footer-ip">All images © the artist. Reproduction without written permission is prohibited.</div>
+      <div class="footer-socials">
+        <a href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram — @brevandenberghe</a>
+        <span class="sig">BVDB</span>
+      </div>
+    </footer>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-     PRICE CALCULATOR
-══════════════════════════════════════════════════════ -->
+  <!-- ══ CALCULATOR ══ -->
   <div id="calculator" class="page page-offset">
     <div class="calc-layout">
       <p class="pg-eyebrow">Commissions</p>
       <h1 class="pg-title">Price Calculator</h1>
-      <p class="calc-subtitle">Use this calculator to estimate the price of a commission based on the artwork's
-        dimensions. Final quotes are confirmed after consultation — get in touch to discuss your project.</p>
-
-      <!-- Rate reference card -->
+      <p class="calc-subtitle">Use this calculator to estimate the price of a commission based on the artwork's dimensions. Final quotes are confirmed after consultation — get in touch to discuss your project.</p>
       <div class="calc-card">
         <h3>Base rates</h3>
         <table class="rate-table">
-          <thead>
-            <tr>
-              <th>Medium</th>
-              <th>Rate per sq inch (AUD)</th>
-              <th>Rate per sq cm (AUD)</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Medium</th><th>Rate per sq inch (AUD)</th><th>Rate per sq cm (AUD)</th></tr></thead>
           <tbody>
-            <tr>
-              <td class="med">Watercolour</td>
-              <td>$2.50 / sq in</td>
-              <td class="rate-pill">≈ $0.388 / sq cm</td>
-            </tr>
-            <tr>
-              <td class="med">Oil</td>
-              <td>$3.00 / sq in</td>
-              <td class="rate-pill">≈ $0.465 / sq cm</td>
-            </tr>
+            <tr><td class="med">Watercolour</td><td>$2.50 / sq in</td><td class="rate-pill">≈ $0.388 / sq cm</td></tr>
+            <tr><td class="med">Oil</td><td>$3.00 / sq in</td><td class="rate-pill">≈ $0.465 / sq cm</td></tr>
           </tbody>
         </table>
-        <p style="font-size:0.72rem; color:var(--muted); margin-top:1rem; line-height:1.7;">Prices are a guide only.
-          Complexity, reference materials, revision rounds, and framing may affect the final quote. A 50% deposit is
-          required to begin work.</p>
+        <p style="font-size:0.72rem;color:var(--muted);margin-top:1rem;line-height:1.7;">Prices are a guide only. Complexity, reference materials, revision rounds, and framing may affect the final quote. A 50% deposit is required to begin work.</p>
       </div>
-
-      <!-- Calculator card -->
       <div class="calc-card">
         <h3>Calculate a price</h3>
-
         <div style="margin-bottom:1.25rem;">
-          <div
-            style="font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:0.5rem;">
-            Units</div>
+          <div style="font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Units</div>
           <div class="unit-toggle">
             <button class="utbtn active" id="btn-in" onclick="setUnit('in')">Inches (in)</button>
             <button class="utbtn" id="btn-cm" onclick="setUnit('cm')">Centimetres (cm)</button>
           </div>
         </div>
-
         <div class="input-row">
-          <div class="input-group">
-            <label id="w-label">Width (inches)</label>
-            <input type="number" id="inp-w" min="0" step="0.1" placeholder="e.g. 12" oninput="calcPrice()" />
-          </div>
-          <div class="input-group">
-            <label id="h-label">Height (inches)</label>
-            <input type="number" id="inp-h" min="0" step="0.1" placeholder="e.g. 16" oninput="calcPrice()" />
-          </div>
+          <div class="input-group"><label id="w-label">Width (inches)</label><input type="number" id="inp-w" min="0" step="0.1" placeholder="e.g. 12" oninput="calcPrice()"/></div>
+          <div class="input-group"><label id="h-label">Height (inches)</label><input type="number" id="inp-h" min="0" step="0.1" placeholder="e.g. 16" oninput="calcPrice()"/></div>
         </div>
-
         <div class="input-row">
           <div class="input-group">
             <label>Medium</label>
@@ -1712,7 +412,6 @@
             </select>
           </div>
         </div>
-
         <div class="result-box" id="result-box">
           <div>
             <div class="result-label">Estimated price (AUD)</div>
@@ -1723,56 +422,31 @@
         </div>
         <div class="shipping-warn" id="shipping-warn" style="display:none;">
           <strong>Shipping &amp; handling not included</strong>
-          This estimate covers the artwork only. Shipping, packaging, and handling are calculated separately based on
-          your location and artwork dimensions — you will receive a separate quote for these costs before any payment is
-          taken.
+          This estimate covers the artwork only. Shipping, packaging, and handling are calculated separately based on your location and artwork dimensions — you will receive a separate quote before any payment is taken.
         </div>
       </div>
-
-      <!-- Size visualiser card -->
       <div class="calc-card">
         <div class="vis-wrap">
           <h4>Size visualiser</h4>
-          <p class="vis-subtitle">Your artwork size shown against an A4 reference sheet (210 × 297 mm). Minimum
-            commission size is 4 × 4 inches.</p>
-          <div class="vis-canvas-wrap">
-            <canvas id="vis-canvas" width="400" height="240"></canvas>
-          </div>
-          <p class="min-warn" id="min-warn">⚠ Minimum commission size is 4 × 4 inches (approx. 10 × 10 cm). Please
-            increase your dimensions.</p>
+          <p class="vis-subtitle">Your artwork size shown against an A4 reference sheet (210 × 297 mm). Minimum commission size is 4 × 4 inches.</p>
+          <div class="vis-canvas-wrap"><canvas id="vis-canvas" width="400" height="240"></canvas></div>
+          <p class="min-warn" id="min-warn">⚠ Minimum commission size is 4 × 4 inches (approx. 10 × 10 cm). Please increase your dimensions.</p>
           <div class="vis-legend">
-            <div class="vis-legend-item">
-              <div class="vis-swatch" style="background:#B85C38;opacity:0.75;"></div>Your artwork
-            </div>
-            <div class="vis-legend-item">
-              <div class="vis-swatch" style="background:rgba(201,168,76,0.25);border:1px solid #C9A84C;"></div>A4
-              reference (210 × 297 mm)
-            </div>
+            <div class="vis-legend-item"><div class="vis-swatch" style="background:#B85C38;opacity:0.75;"></div>Your artwork</div>
+            <div class="vis-legend-item"><div class="vis-swatch" style="background:rgba(201,168,76,0.25);border:1px solid #C9A84C;"></div>A4 reference (210 × 297 mm)</div>
           </div>
         </div>
       </div>
-
-      <!-- Shipping card -->
-      <div class="calc-card" style="border-left: 3px solid var(--gold);">
+      <div class="calc-card" style="border-left:3px solid var(--gold);">
         <h3 style="margin-bottom:0.75rem;">Shipping &amp; handling</h3>
-        <p style="font-size:0.88rem; color:var(--muted); line-height:1.8; margin-bottom:0.75rem;">The price shown above
-          covers the <strong>artwork only</strong>. Shipping and handling are <strong>always calculated
-            separately</strong> and will be quoted after you confirm your order details.</p>
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.75;">Factors that affect shipping cost include
-          artwork dimensions, destination (domestic vs. international), and preferred courier. All works are
-          professionally packaged to ensure safe transit.</p>
+        <p style="font-size:0.88rem;color:var(--muted);line-height:1.8;margin-bottom:0.75rem;">The price shown above covers the <strong>artwork only</strong>. Shipping and handling are <strong>always calculated separately</strong> and will be quoted after you confirm your order details.</p>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.75;">Factors that affect shipping cost include artwork dimensions, destination (domestic vs. international), and preferred courier. All works are professionally packaged to ensure safe transit.</p>
       </div>
-
-      <p style="font-size:0.8rem; color:var(--muted); margin-top:0.75rem; text-align:center;">
-        Ready to enquire? <a onclick="showPage('contact')" style="color:var(--terracotta); cursor:pointer;">Get in touch
-          →</a>
-      </p>
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:0.75rem;text-align:center;">Ready to enquire? <a onclick="showPage('contact')" style="color:var(--terracotta);cursor:pointer;">Get in touch →</a></p>
     </div>
-
     <footer>
       <div class="footer-copy">© 2026 Bre VanDenBerghe. All rights reserved.</div>
-      <div class="footer-ip">All prices are in AUD and are estimates only. Shipping quoted separately. Final price
-        confirmed after consultation.</div>
+      <div class="footer-ip">All prices are in AUD and are estimates only. Shipping quoted separately.</div>
       <div class="footer-socials">
         <a href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram — @brevandenberghe</a>
         <span class="sig">BVDB</span>
@@ -1780,17 +454,24 @@
     </footer>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-     ABOUT
-══════════════════════════════════════════════════════ -->
+  <!-- ══ ABOUT ══ -->
   <div id="about" class="page page-offset">
     <div class="about-layout">
       <aside class="about-sidebar">
         <div class="about-portrait">
+          <!--
+            TO ADD A PHOTO OF BRE:
+            1. Upload her photo to site_files/images/ via GitHub
+               (name it something like artist-portrait.jpg)
+            2. Replace the art-ph div below with:
+               <img src="/images/artist-portrait.jpg" alt="Bre VanDenBerghe">
+            3. The image will automatically fill the portrait area.
+               Use object-position to adjust cropping if needed.
+          -->
           <div class="art-ph" style="color:rgba(201,168,76,0.22);">
             <svg width="38" height="38" viewBox="0 0 48 48" fill="none">
-              <circle cx="24" cy="18" r="8" stroke="#C9A84C" stroke-width="1" />
-              <path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#C9A84C" stroke-width="1" />
+              <circle cx="24" cy="18" r="8" stroke="#C9A84C" stroke-width="1"/>
+              <path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#C9A84C" stroke-width="1"/>
             </svg>
             Artist portrait<br>[photo to be supplied]
           </div>
@@ -1798,97 +479,73 @@
         <h1>Bre VanDenBerghe</h1>
         <span class="subtitle">Fine Artist</span>
         <div class="about-socials">
-          <a class="asl" href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener"><span
-              class="sdot"></span>Instagram — @brevandenberghe</a>
+          <a class="asl" href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">
+            <span class="sdot"></span>Instagram — @brevandenberghe
+          </a>
         </div>
       </aside>
 
       <div class="about-body">
         <p class="pg-eyebrow">About the artist</p>
         <h2>Rooted in<br>classical tradition</h2>
-        <p>As a child, Bre was fascinated by the shadows made by the plants in the garden. This in part inspired her to start creating art. Thorughout her childhood and into her teen years, Bre experimented with creating her own art under the study of Harold "Pete" Petersen. She attended Utah State University, studying a Bachelor's of Fine Art. </p>
-        <p>When working at the Fine Arts Centre in Colorado Springs as a docent, as well as a library technician at a local primary school, Bre acquired a large numebr of materials removed from circulation and decommisioned, she was struck with an idea. She recalled making paper dolls as a girl, and decided to apply some of those principles to create pieces using upcycled papers. Using the text denisty on the page to create light and dark, Bre layers oil paint onto the paper to create unique masterpieces. </p>
+        <p>As a child, Bre was fascinated by the shadows made by the plants in the garden. This in part inspired her to start creating art. Throughout her childhood and into her teen years, Bre experimented with creating her own art under the study of Harold "Pete" Petersen. She attended Utah State University, studying a Bachelor's of Fine Art.</p>
+        <p>When working at the Fine Arts Centre in Colorado Springs as a docent, as well as a library technician at a local primary school, Bre acquired a large number of materials removed from circulation and decommissioned. She recalled making paper dolls as a girl, and decided to apply some of those principles to create pieces using upcycled papers. Using the text density on the page to create light and dark, Bre layers oil paint onto the paper to create unique masterpieces.</p>
         <p>Today, Bre creates art out of her home studio. She primarily uses oil, watercolour, and a mix of other materials to create her pieces. Inspired by the world around her, she continues to create art that is meaningful and deeply personal.</p>
         <div class="about-divider"></div>
-        <!--<p
-          style="font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--terracotta); margin-bottom:0.9rem;">
-          Selected clients &amp; publications</p>
-        <ul class="client-list">
-          <li>Client / Publisher Name</li>
-          <li>Client / Publisher Name</li>
-          <li>Client / Publisher Name</li>
-          <li>Client / Publisher Name</li>
-          <li>Client / Publisher Name</li>
-          <li>Client / Publisher Name</li>
-        </ul>
-      </div>-->
-        
+      </div>
     </div>
     <footer>
       <div class="footer-copy">© 2026 Bre VanDenBerghe. All rights reserved.</div>
       <div class="footer-ip">All images © the artist. Reproduction without written permission is prohibited.</div>
       <div class="footer-socials">
         <a href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram — @brevandenberghe</a>
-
         <span class="sig">BVDB</span>
       </div>
     </footer>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-     CONTACT
-══════════════════════════════════════════════════════ -->
+  <!-- ══ CONTACT ══ -->
   <div id="contact" class="page page-offset">
     <div class="contact-layout">
       <div class="contact-left">
         <div>
           <h2>Let's work<br><em>together</em></h2>
-          <p>Available for commissions, licensing, exhibitions, and collaborations. All enquiries welcome — response
-            within 2–3 business days.</p>
+          <p>Available for commissions, licensing, exhibitions, and collaborations. All enquiries welcome — response within 2–3 business days.</p>
           <div class="contact-details">
-            <div class="cd-row"><label>Email</label><a href="mailto:brevandenbergheart@gmail.com">artist@email.com</a>
-            </div>
+            <div class="cd-row"><label>Email</label><a href="mailto:brevandenbergheart@gmail.com">brevandenbergheart@gmail.com</a></div>
             <div class="cd-row"><label>Location</label><span>Australia</span></div>
-            <div class="cd-row"><label>Commissions</label><span
-                style="color:var(--gold);font-size:0.85rem;font-family:var(--sans);letter-spacing:0.1em;">Currently
-                open</span></div>
+            <div class="cd-row"><label>Commissions</label><span style="color:var(--gold);font-size:0.85rem;font-family:var(--sans);letter-spacing:0.1em;">Currently open</span></div>
           </div>
         </div>
         <div>
-          <p
-            style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);opacity:0.55;margin-bottom:0.9rem;">
-            Follow the work</p>
+          <p style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);opacity:0.55;margin-bottom:0.9rem;">Follow the work</p>
           <div class="socials-row">
             <a class="s-pill" href="https://instagram.com/brevandenberghe" target="_blank" rel="noopener">Instagram</a>
-
           </div>
         </div>
       </div>
-
       <div class="contact-right">
         <h3>Send a message</h3>
         <form onsubmit="return false;">
-          <div class="form-group"><label>Your name</label><input type="text" placeholder="First Last" /></div>
-          <div class="form-group"><label>Email address</label><input type="email" placeholder="firstlast@example.com" />
-          </div>
+          <div class="form-group"><label>Your name</label><input type="text" placeholder="First Last"/></div>
+          <div class="form-group"><label>Email address</label><input type="email" placeholder="firstlast@example.com"/></div>
           <div class="form-group">
             <label>Subject</label>
             <select>
               <option>Commission enquiry</option>
+              <option>Purchase enquiry</option>
               <option>Exhibition / gallery</option>
               <option>Licensing / reproduction</option>
-              <option>Purchase Enquiry </option>
               <option>General enquiry</option>
             </select>
           </div>
-          <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project…"></textarea>
-          </div>
+          <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project…"></textarea></div>
           <button class="form-submit" type="submit">Send message →</button>
         </form>
         <div class="ag-form-note">
-  <strong>Purchasing original works</strong>
-  If you are interested in purchasing Bre's work, please contact us to discuss further.
-</div> 
+          <strong>Purchasing original works</strong>
+          If you are interested in purchasing Bre's work, please contact us to discuss further.
+        </div>
       </div>
     </div>
     <footer>
@@ -1908,9 +565,9 @@
       <div class="lb-img" id="lb-img">
         <div class="art-ph">
           <svg width="44" height="44" viewBox="0 0 48 48" fill="none">
-            <rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1" />
-            <circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1" />
-            <path d="M4 32L16 20L26 30L34 22L44 32" stroke="#C9A84C" stroke-width="1" />
+            <rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1"/>
+            <circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1"/>
+            <path d="M4 32L16 20L26 30L34 22L44 32" stroke="#C9A84C" stroke-width="1"/>
           </svg>
           [Full-resolution image]
         </div>
@@ -1924,27 +581,15 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════════════════ -->
   <script>
-    /* ── Artwork data ──────────────────────────────────────
-       TO ADD A WORK: copy one object, paste at the end of
-       the array, update the fields, save, redeploy.
-       featured: true  → appears on the home page strip
-       tags: array     → controls gallery filter buttons
-    ─────────────────────────────────────────────────────── */
-  
-let works = [];
-    
-    /* ── SVG placeholder icon (reused) ──────────────────── */
-    const phSvg = `<svg width="34" height="34" viewBox="0 0 48 48" fill="none">
-    <rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1"/>
-    <circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1"/>
-    <path d="M4 32L16 20L26 30L34 22L44 32" stroke="#C9A84C" stroke-width="1"/>
-  </svg>`;
+    let works = [];
 
-    /* ── Page routing ────────────────────────────────────── */
+    const phSvg = `<svg width="34" height="34" viewBox="0 0 48 48" fill="none">
+      <rect x="4" y="4" width="40" height="40" rx="1" stroke="#C9A84C" stroke-width="1"/>
+      <circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1"/>
+      <path d="M4 32L16 20L26 30L34 22L44 32" stroke="#C9A84C" stroke-width="1"/>
+    </svg>`;
+
     function showPage(id) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(id).classList.add('active');
@@ -1956,12 +601,9 @@ let works = [];
       closeMobileMenu();
     }
 
-    /* ── Mobile menu ─────────────────────────────────────── */
     function toggleMenu() {
-      const btn = document.getElementById('hamburger');
-      const drawer = document.getElementById('mobile-nav');
-      btn.classList.toggle('open');
-      drawer.classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+      document.getElementById('mobile-nav').classList.toggle('open');
     }
     function closeMobileMenu() {
       document.getElementById('hamburger').classList.remove('open');
@@ -1969,57 +611,42 @@ let works = [];
     }
     function navTo(id) { showPage(id); }
 
-    /* ── Nav shadow on scroll ────────────────────────────── */
     window.addEventListener('scroll', () => {
       document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 10);
     }, { passive: true });
 
-    /* ── Featured strip ──────────────────────────────────── */
     function renderFeatured() {
       const grid = document.getElementById('featured-grid');
       const featured = works.filter(w => w.featured);
       grid.innerHTML = featured.length ? featured.map(w => `
-      <div class="feat-card" onclick="openLightbox('${esc(w.title)}','${esc(w.medium)}','${esc(w.medium)} · ${esc(w.dims)} · ${w.year}','${esc(w.desc)}','${esc(w.image)}')">
-        <div class="feat-thumb">${w.image
-          ? `<img src="${w.image}" alt="${esc(w.title)}" style="width:100%;height:100%;object-fit:cover;">`
-          : `<div class="art-ph">${phSvg}Artwork image</div>`}
-        </div>
-        <div class="feat-label"><h3>${w.title}</h3><p>${w.medium} · ${w.year}</p></div>
-      </div>
-    `).join('') : '';
+        <div class="feat-card" onclick="openLightbox('${esc(w.title)}','${esc(w.medium)}','${esc(w.medium)} · ${esc(w.dims)} · ${w.year}','${esc(w.desc)}','${esc(w.image)}')">
+          <div class="feat-thumb">${w.image ? `<img src="${w.image}" alt="${esc(w.title)}" style="width:100%;height:100%;object-fit:cover;">` : `<div class="art-ph">${phSvg}Artwork image</div>`}</div>
+          <div class="feat-label"><h3>${w.title}</h3><p>${w.medium} · ${w.year}</p></div>
+        </div>`).join('') : '';
     }
 
-    /* ── Hero title ──────────────────────────────────────── */
     function renderHero() {
       const fw = works.find(w => w.featured);
       if (!fw) return;
-  
-  // Update the title caption
-  document.getElementById('hero-title').textContent = fw.title + ' — ' + fw.medium;
-  
-  // Swap placeholder for real image if one exists
-  if (fw.image) {
-    const bg = document.getElementById('hero-art-bg');
-    bg.style.backgroundImage = `url('${fw.image}')`;
-    bg.style.backgroundSize = 'cover';
-    bg.style.backgroundPosition = 'center';
-    bg.innerHTML = ''; // removes the placeholder SVG and text
-  }
-}
+      document.getElementById('hero-title').textContent = fw.title + ' — ' + fw.medium;
+      if (fw.image) {
+        const bg = document.getElementById('hero-art-bg');
+        bg.style.backgroundImage = `url('${fw.image}')`;
+        bg.style.backgroundSize = 'cover';
+        bg.style.backgroundPosition = 'center';
+        bg.innerHTML = '';
+      }
+    }
 
-    /* ── Gallery ─────────────────────────────────────────── */
     function renderGallery(filter) {
       const filtered = filter === 'all' ? works : works.filter(w => w.tags.includes(filter));
       document.getElementById('gallery-grid').innerHTML = filtered.length ? filtered.map(w => `
-      <div class="gcard" onclick="openLightbox('${esc(w.title)}','${esc(w.medium)}','${esc(w.medium)} · ${esc(w.dims)} · ${w.year}','${esc(w.desc)}','${esc(w.image)}')">
-        <div class="gthumb">${w.image
-          ? `<img src="${w.image}" alt="${esc(w.title)}" style="width:100%;height:100%;object-fit:cover;">`
-          : `<div class="art-ph">${phSvg}[Image]</div>`}
-        </div>
-        <div class="govlay"><div><h3>${w.title}</h3><p>${w.medium} · ${w.year}</p></div></div>
-        <div class="glabel"><h3>${w.title}</h3><p>${w.medium} · ${w.year}</p></div>
-      </div>
-    `).join('') : `<p style="color:var(--muted);font-size:0.85rem;padding:2rem;grid-column:1/-1;">No works in this category yet.</p>`;
+        <div class="gcard" onclick="openLightbox('${esc(w.title)}','${esc(w.medium)}','${esc(w.medium)} · ${esc(w.dims)} · ${w.year}','${esc(w.desc)}','${esc(w.image)}')">
+          <div class="gthumb">${w.image ? `<img src="${w.image}" alt="${esc(w.title)}" style="width:100%;height:100%;object-fit:cover;">` : `<div class="art-ph">${phSvg}[Image]</div>`}</div>
+          <div class="govlay"><div><h3>${w.title}</h3><p>${w.medium} · ${w.year}</p></div></div>
+          <div class="glabel"><h3>${w.title}</h3><p>${w.medium} · ${w.year}</p></div>
+        </div>`).join('')
+      : `<p style="color:var(--muted);font-size:0.85rem;padding:2rem;grid-column:1/-1;">No works in this category yet.</p>`;
     }
 
     function filterGallery(filter, btn) {
@@ -2028,7 +655,6 @@ let works = [];
       renderGallery(filter);
     }
 
-    /* ── Lightbox ────────────────────────────────────────── */
     function openLightbox(title, medium, meta, desc, image) {
       document.getElementById('lb-title').textContent = title;
       document.getElementById('lb-meta').textContent = meta;
@@ -2046,11 +672,9 @@ let works = [];
       document.body.style.overflow = '';
     }
 
-    /* ── Price calculator ────────────────────────────────── */
-    const SQ_IN_TO_SQ_CM = 6.4516;
-    const MIN_IN = 4; // minimum 4×4 inches
-    const A4_W_IN = 8.268; // A4 width in inches (210mm)
-    const A4_H_IN = 11.693; // A4 height in inches (297mm)
+    const MIN_IN = 4;
+    const A4_W_IN = 8.268;
+    const A4_H_IN = 11.693;
     let currentUnit = 'in';
 
     function setUnit(unit) {
@@ -2069,45 +693,23 @@ let works = [];
       const hRaw = parseFloat(document.getElementById('inp-h').value) || 0;
       const rate = parseFloat(document.getElementById('sel-medium').value);
       const medLabel = document.getElementById('sel-medium').selectedOptions[0].text.split(' —')[0];
-
       const priceEl = document.getElementById('result-price');
       const breakdownEl = document.getElementById('result-breakdown');
       const tagEl = document.getElementById('result-tag');
       const warnEl = document.getElementById('shipping-warn');
       const minWarn = document.getElementById('min-warn');
-
-      // Convert input to inches for all calculations
-      let wIn, hIn;
-      if (currentUnit === 'in') {
-        wIn = wRaw; hIn = hRaw;
-      } else {
-        wIn = wRaw / 2.54; hIn = hRaw / 2.54;
-      }
-
-      // Draw visualiser regardless (shows A4 reference even with no input)
+      let wIn = currentUnit === 'in' ? wRaw : wRaw / 2.54;
+      let hIn = currentUnit === 'in' ? hRaw : hRaw / 2.54;
       drawVisualiser(wIn, hIn);
-
       if (!wRaw || !hRaw) {
-        priceEl.textContent = '—';
-        breakdownEl.textContent = 'Enter dimensions above';
-        tagEl.textContent = '';
-        warnEl.style.display = 'none';
-        minWarn.classList.remove('show');
-        return;
+        priceEl.textContent = '—'; breakdownEl.textContent = 'Enter dimensions above';
+        tagEl.textContent = ''; warnEl.style.display = 'none'; minWarn.classList.remove('show'); return;
       }
-
-      // Minimum size check
       const belowMin = wIn < MIN_IN || hIn < MIN_IN;
       minWarn.classList.toggle('show', belowMin);
-
       const areaSqIn = wIn * hIn;
-      let displayArea, displayUnit;
-      if (currentUnit === 'in') {
-        displayArea = areaSqIn.toFixed(2); displayUnit = 'sq in';
-      } else {
-        displayArea = (wRaw * hRaw).toFixed(2); displayUnit = 'sq cm';
-      }
-
+      const displayArea = currentUnit === 'in' ? areaSqIn.toFixed(2) : (wRaw * hRaw).toFixed(2);
+      const displayUnit = currentUnit === 'in' ? 'sq in' : 'sq cm';
       const price = areaSqIn * rate;
       priceEl.textContent = '$' + price.toFixed(2) + ' AUD';
       breakdownEl.textContent = `${displayArea} ${displayUnit} × $${rate.toFixed(2)}/sq in (${medLabel})`;
@@ -2121,130 +723,78 @@ let works = [];
       const ctx = canvas.getContext('2d');
       const CW = canvas.width, CH = canvas.height;
       ctx.clearRect(0, 0, CW, CH);
-
-      // Work out scale: fit A4 and artwork into the canvas with padding
       const PAD = 24;
-      const refW = A4_W_IN, refH = A4_H_IN;
-      const artW = wIn || 0, artH = hIn || 0;
-      const maxW = Math.max(refW, artW, 1);
-      const maxH = Math.max(refH, artH, 1);
+      const maxW = Math.max(A4_W_IN, wIn || 0, 1);
+      const maxH = Math.max(A4_H_IN, hIn || 0, 1);
       const scale = Math.min((CW - PAD * 2) / maxW, (CH - PAD * 2) / maxH);
-
-      // A4 dimensions in px
-      const a4Px = { w: refW * scale, h: refH * scale };
-      // Centre A4 in canvas
+      const a4Px = { w: A4_W_IN * scale, h: A4_H_IN * scale };
       const originX = (CW - a4Px.w) / 2;
       const originY = (CH - a4Px.h) / 2;
-
-      // Draw A4 reference (gold, translucent)
       ctx.save();
-      ctx.fillStyle = 'rgba(201,168,76,0.13)';
-      ctx.strokeStyle = 'rgba(201,168,76,0.6)';
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([5, 4]);
+      ctx.fillStyle = 'rgba(201,168,76,0.13)'; ctx.strokeStyle = 'rgba(201,168,76,0.6)';
+      ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
       ctx.fillRect(originX, originY, a4Px.w, a4Px.h);
       ctx.strokeRect(originX, originY, a4Px.w, a4Px.h);
       ctx.restore();
-
-      // A4 label (top right corner inside)
       ctx.save();
-      ctx.font = '500 11px Jost, sans-serif';
-      ctx.fillStyle = 'rgba(201,168,76,0.7)';
+      ctx.font = '500 11px Jost, sans-serif'; ctx.fillStyle = 'rgba(201,168,76,0.7)';
       ctx.textAlign = 'right';
       ctx.fillText('A4 (210 × 297 mm)', originX + a4Px.w - 6, originY + 16);
       ctx.restore();
-
-      // Draw artwork if dimensions given
-      if (artW > 0 && artH > 0) {
-        const artPx = { w: artW * scale, h: artH * scale };
-        // Overlay artwork anchored to bottom-left of A4 (like physically placing it)
+      if (wIn > 0 && hIn > 0) {
+        const artPx = { w: wIn * scale, h: hIn * scale };
         const artX = originX;
         const artY = originY + a4Px.h - artPx.h;
-
-        // Artwork fill with diagonal placeholder lines
         ctx.save();
-        ctx.fillStyle = 'rgba(184,92,56,0.18)';
-        ctx.strokeStyle = 'rgba(184,92,56,0.8)';
-        ctx.lineWidth = 1.5;
-        ctx.setLineDash([]);
+        ctx.fillStyle = 'rgba(184,92,56,0.18)'; ctx.strokeStyle = 'rgba(184,92,56,0.8)';
+        ctx.lineWidth = 1.5; ctx.setLineDash([]);
         ctx.fillRect(artX, artY, artPx.w, artPx.h);
         ctx.strokeRect(artX, artY, artPx.w, artPx.h);
-
-        // Diagonal cross lines inside artwork rect (like a placeholder image frame)
-        ctx.strokeStyle = 'rgba(184,92,56,0.3)';
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(184,92,56,0.3)'; ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(artX, artY); ctx.lineTo(artX + artPx.w, artY + artPx.h);
         ctx.moveTo(artX + artPx.w, artY); ctx.lineTo(artX, artY + artPx.h);
-        ctx.stroke();
-        ctx.restore();
-
-        // Artwork dimension label
+        ctx.stroke(); ctx.restore();
         ctx.save();
-        ctx.font = '500 11px Jost, sans-serif';
-        ctx.fillStyle = 'rgba(184,92,56,0.9)';
+        ctx.font = '500 11px Jost, sans-serif'; ctx.fillStyle = 'rgba(184,92,56,0.9)';
         ctx.textAlign = 'left';
-        let dimLabel;
-        if (currentUnit === 'in') {
-          dimLabel = `${artW}" × ${artH}"`;
-        } else {
-          dimLabel = `${document.getElementById('inp-w').value} × ${document.getElementById('inp-h').value} cm`;
-        }
+        const dimLabel = currentUnit === 'in'
+          ? `${wIn}" × ${hIn}"`
+          : `${document.getElementById('inp-w').value} × ${document.getElementById('inp-h').value} cm`;
         ctx.fillText(dimLabel, artX + 5, artY + artPx.h - 7);
         ctx.restore();
       } else {
-        // Prompt text when no artwork dimensions
         ctx.save();
-        ctx.font = '300 12px Jost, sans-serif';
-        ctx.fillStyle = 'rgba(122,116,104,0.5)';
+        ctx.font = '300 12px Jost, sans-serif'; ctx.fillStyle = 'rgba(122,116,104,0.5)';
         ctx.textAlign = 'center';
         ctx.fillText('Enter dimensions above to see your artwork size', CW / 2, CH / 2 + 4);
         ctx.restore();
       }
     }
 
-    /* ── Escape helper (prevents XSS in onclick strings) ── */
     function esc(str) { return str ? String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;') : ''; }
 
-    /* ── Init — load works then render everything ────────── */
     async function init() {
-      // Show loading state in gallery
       const grid = document.getElementById('gallery-grid');
       if (grid) grid.innerHTML = `<p style="color:var(--muted);font-size:0.85rem;padding:2rem;grid-column:1/-1;">Loading gallery…</p>`;
-
       try {
         const res = await fetch('/works.json');
         if (res.ok) {
           const data = await res.json();
           works = data.map(w => ({
-            title: w.title || 'Untitled',
-            medium: w.medium || '',
-            year: w.year || '',
+            title: w.title || 'Untitled', medium: w.medium || '', year: w.year || '',
             tags: Array.isArray(w.tags) ? w.tags : [],
             dims: (w.width && w.height) ? `${w.width} × ${w.height} cm` : '—',
-            desc: w.description || '',
-            image: w.image || '',
-            featured: w.featured || false,
+            desc: w.description || '', image: w.image || '', featured: w.featured || false,
           }));
-        } else {
-          throw new Error('works.json not found');
-        }
-      } catch (e) {
-        // Fallback: use placeholder data until works.json exists
+        } else { throw new Error('works.json not found'); }
+      } catch(e) {
         console.warn('Using placeholder data:', e.message);
         works = [
-          { title: 'Placeholder Name 1', medium: 'Watercolour', year: 2024, tags: ['watercolour'], dims: '38 × 56 cm', desc: 'Description placeholder 1.', image: '', featured: true },
-          { title: 'Placeholder Name 2', medium: 'Watercolour', year: 2023, tags: ['watercolour'], dims: '30 × 42 cm', desc: 'Description placeholder 2.', image: '', featured: true },
-          { title: 'Placeholder Name 3', medium: 'Oil', year: 2024, tags: ['oil'], dims: '60 × 80 cm', desc: 'Description placeholder 3.', image: '', featured: true },
-          { title: 'Placeholder Name 4', medium: 'Oil', year: 2024, tags: ['oil'], dims: '45 × 60 cm', desc: 'Description placeholder 4.', image: '', featured: true },
-          { title: 'Placeholder Name 5', medium: 'Mixed media', year: 2023, tags: ['mixed'], dims: '30 × 42 cm', desc: 'Description placeholder 5.', image: '', featured: false },
-          { title: 'Placeholder Name 6', medium: 'Watercolour', year: 2023, tags: ['watercolour'], dims: '38 × 56 cm', desc: 'Description placeholder 6.', image: '', featured: false },
-          { title: 'Placeholder Name 7', medium: 'Mixed media', year: 2022, tags: ['mixed'], dims: '21 × 30 cm', desc: 'Description placeholder 7.', image: '', featured: false },
-          { title: 'Placeholder Name 8', medium: 'Watercolour', year: 2024, tags: ['commission', 'watercolour'], dims: '30 × 40 cm', desc: 'Description placeholder 8.', image: '', featured: false },
-          { title: 'Placeholder Name 9', medium: 'Digital & mixed', year: 2023, tags: ['commission', 'mixed'], dims: '—', desc: 'Description placeholder 9.', image: '', featured: false },
+          { title: 'Placeholder 1', medium: 'Watercolour', year: 2024, tags: ['watercolour'], dims: '38 × 56 cm', desc: 'Description.', image: '', featured: true },
+          { title: 'Placeholder 2', medium: 'Oil', year: 2024, tags: ['oil'], dims: '60 × 80 cm', desc: 'Description.', image: '', featured: true },
         ];
       }
-
       renderGallery('all');
       renderFeatured();
       renderHero();
@@ -2252,19 +802,16 @@ let works = [];
 
     init();
   </script>
-  <!-- Netlify Identity — handles invitation redirects -->
+
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
         if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
+          window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; });
         }
       });
     }
   </script>
 </body>
-
 </html>
