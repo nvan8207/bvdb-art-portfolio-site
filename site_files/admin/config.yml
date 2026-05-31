@@ -45,3 +45,5 @@ collections:
           - "oil"
           - "mixed"
           - "commission"
+          - "available for purchase"
+          - "purchased"
