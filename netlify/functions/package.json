@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Netlify serverless functions for BVDB art portfolio site",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@netlify/functions": "^2.0.0"
   }
