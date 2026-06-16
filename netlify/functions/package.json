@@ -1,0 +1,9 @@
+{
+  "name": "bvdb-netlify-functions",
+  "version": "1.0.0",
+  "description": "Netlify serverless functions for BVDB art portfolio site",
+  "private": true,
+  "dependencies": {
+    "@netlify/functions": "^2.0.0"
+  }
+}
