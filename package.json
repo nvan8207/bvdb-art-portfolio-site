@@ -1,0 +1,12 @@
+{
+  "name": "bvdb-art-portfolio-site",
+  "version": "1.0.0",
+  "description": "Portfolio website for Bre VanDenBerghe — fine artist",
+  "private": true,
+  "scripts": {
+    "build": "node netlify/build-works-json.js"
+  },
+  "dependencies": {
+    "@netlify/functions": "^2.0.0"
+  }
+}
