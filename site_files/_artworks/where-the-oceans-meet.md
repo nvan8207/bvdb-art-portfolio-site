@@ -9,4 +9,5 @@ image: /images/works/where_the_oceans_meet.jpg
 featured: false
 tags:
   - oil
+  - purchased
 ---
